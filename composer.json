@@ -1,7 +1,8 @@
 {
     "name": "yitznewton/2048",
+    "description": "A PHP implementation of the game 2048",
     "type": "application",
-    "license": "BSD-2",
+    "license": "BSD-2-Clause",
     "authors": [
         {
             "name": "Yitzchak Schaffer",
@@ -12,8 +13,7 @@
         "psr-0": {
             "Yitznewton\\TwentyFortyEight\\": "src/",
             "Yitznewton\\TwentyFortyEight\\Tests\\": "tests/"
-        },
-        "classmap": ["tests/"]
+        }
     },
     "require": {
     },
