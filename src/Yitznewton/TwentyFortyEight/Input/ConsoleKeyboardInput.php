@@ -4,7 +4,7 @@ namespace Yitznewton\TwentyFortyEight\Input;
 
 use Yitznewton\TwentyFortyEight\Board;
 
-class KeyboardInput implements Input
+class ConsoleKeyboardInput implements Input
 {
     private $originalTerminalSettings;
 
