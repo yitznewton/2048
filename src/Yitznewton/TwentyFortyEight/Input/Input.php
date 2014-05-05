@@ -2,9 +2,10 @@
 
 namespace Yitznewton\TwentyFortyEight\Input;
 
-use Yitznewton\TwentyFortyEight\Board;
-
 interface Input
 {
+    /**
+     * @return mixed
+     */
     public function getMove();
 }
