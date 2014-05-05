@@ -2,7 +2,7 @@
 
 namespace Yitznewton\TwentyFortyEight\Input;
 
-use Yitznewton\TwentyFortyEight\Board;
+use Yitznewton\TwentyFortyEight\Move;
 
 class ConsoleKeyboardInput implements Input
 {
@@ -29,13 +29,13 @@ class ConsoleKeyboardInput implements Input
 
         switch (strtolower($char)) {
             case 'w':
-                return Board::MOVE_UP;
+                return Move::UP;
             case 'a':
-                return Board::MOVE_LEFT;
+                return Move::LEFT;
             case 's':
-                return Board::MOVE_DOWN;
+                return Move::DOWN;
             case 'd':
-                return Board::MOVE_RIGHT;
+                return Move::RIGHT;
             default:
                 throw new \UnexpectedValueException('Invalid character: ' . $char);
         }
