@@ -2,7 +2,7 @@
 
 namespace Yitznewton\TwentyFortyEight;
 
-final abstract class Move
+abstract class Move
 {
     const UP = 1;
     const DOWN = 2;
