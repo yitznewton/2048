@@ -1,0 +1,25 @@
+{
+    "name": "yitznewton/2048",
+    "type": "application",
+    "license": "BSD-2",
+    "authors": [
+        {
+            "name": "Yitzchak Schaffer",
+            "email": "yitzchak@yitznewton.org"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Yitznewton\\TwentyFortyEight\\": "src/",
+            "Yitznewton\\TwentyFortyEight\\Tests\\": "tests/",
+        },
+        "classmap": ["tests/"]
+    },
+    "require": {
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
