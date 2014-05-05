@@ -40,6 +40,7 @@ class ConsoleOutput implements Output
     private function printBoard(Board $board)
     {
         echo 'board goes here' . "\n\n";
+        $board; // phpmd
     }
 
     private function clearScreen()

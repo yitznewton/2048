@@ -18,7 +18,10 @@
     "require": {
     },
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+        "phpmd/phpmd": "*",
+        "squizlabs/php_codesniffer": "*",
+        "fabpot/php-cs-fixer": "dev-master"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
