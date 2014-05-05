@@ -15,13 +15,16 @@ class ConsoleOutput implements Output
     public function render(Board $board)
     {
         $this->clearScreen();
-        $this->printHeader($board);
+        $this->printHeader($board->getScore());
         $this->printBoard($board);
     }
 
-    private function printHeader(Board $board)
+    /**
+     * @param int $score
+     */
+    private function printHeader($score)
     {
-        $score = sprintf('SCORE: ' . $board->getScore());
+        $score = 'SCORE: ' . $score;
         $spaces = str_repeat(' ', self::LINE_LENGTH - 4 - strlen($score));
         echo '2048' . $spaces . $score . "\n\n";
     }
