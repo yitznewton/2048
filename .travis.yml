@@ -1,0 +1,11 @@
+language: php
+
+before_script:
+  - ./composer.phar install --dev --no-interaction
+
+php:
+  - 5.4
+  - 5.5
+
+script:
+  - make ci
