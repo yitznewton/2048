@@ -13,7 +13,7 @@ $board = new Board();
 $board->initialize();
 $output->renderBoard($board);
 
-while ($board->hasEmptySlots()) {
+while ($board->hasPossibleMoves()) {
     $move = $input->getMove();
     $board->addMove($move);
     $output->renderBoard($board);
