@@ -11,14 +11,14 @@
     "autoload": {
         "psr-0": {
             "Yitznewton\\TwentyFortyEight\\": "src/",
-            "Yitznewton\\TwentyFortyEight\\Tests\\": "tests/",
+            "Yitznewton\\TwentyFortyEight\\Tests\\": "tests/"
         },
         "classmap": ["tests/"]
     },
     "require": {
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
+        "phpunit/phpunit": "*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
