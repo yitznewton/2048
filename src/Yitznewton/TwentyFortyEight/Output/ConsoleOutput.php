@@ -12,11 +12,19 @@ class ConsoleOutput implements Output
      * @param Board $board
      * @return void
      */
-    public function render(Board $board)
+    public function renderBoard(Board $board)
     {
         $this->clearScreen();
         $this->printHeader($board->getScore());
         $this->printBoard($board);
+    }
+
+    /**
+     * @param int $score
+     */
+    public function renderGameOver($score)
+    {
+        echo 'Good game! Your score was ' . $score . "\n\n";
     }
 
     /**

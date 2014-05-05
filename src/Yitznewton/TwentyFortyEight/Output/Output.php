@@ -10,5 +10,11 @@ interface Output
      * @param Board $board
      * @return void
      */
-    public function render(Board $board);
+    public function renderBoard(Board $board);
+
+    /**
+     * @param int $score
+     * @return void
+     */
+    public function renderGameOver($score);
 }

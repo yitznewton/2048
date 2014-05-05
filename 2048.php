@@ -11,10 +11,12 @@ $output = new ConsoleOutput();
 
 $board = new Board();
 $board->initialize();
-$output->render($board);
+$output->renderBoard($board);
 
 while ($board->hasEmptySlots()) {
     $move = $input->getMove();
     $board->addMove($move);
-    $output->render($board);
+    $output->renderBoard($board);
 }
+
+$output->renderGameOver($board->getScore());
