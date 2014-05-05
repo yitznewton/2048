@@ -6,7 +6,7 @@ use Yitznewton\TwentyFortyEight\Board;
 
 class ConsoleOutput implements Output
 {
-    const LINE_LENGTH = 76;
+    const LINE_LENGTH = 48;
 
     /**
      * @param Board $board
@@ -26,7 +26,7 @@ class ConsoleOutput implements Output
     {
         $score = 'SCORE: ' . $score;
         $spaces = str_repeat(' ', self::LINE_LENGTH - 4 - strlen($score));
-        echo '2048' . $spaces . $score . "\n\n";
+        echo $score . $spaces . '2048' . "\n\n";
     }
 
     private function printBoard(Board $board)
