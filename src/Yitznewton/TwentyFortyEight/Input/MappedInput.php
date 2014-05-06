@@ -2,7 +2,7 @@
 
 namespace Yitznewton\TwentyFortyEight\Input;
 
-use Yitznewton\TwentyFortyEight\InputDevice\CharacterInputDevice;
+use Yitznewton\TwentyFortyEight\Input\Device\CharacterInputDevice;
 
 class MappedInput implements Input
 {

@@ -2,7 +2,7 @@
 
 namespace Yitznewton\TwentyFortyEight\TestDoubles;
 
-use Yitznewton\TwentyFortyEight\InputDevice\CharacterInputDevice;
+use Yitznewton\TwentyFortyEight\Input\Device\CharacterInputDevice;
 
 class CharacterInputStub implements CharacterInputDevice
 {

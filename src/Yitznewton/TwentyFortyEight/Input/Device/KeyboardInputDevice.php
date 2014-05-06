@@ -1,6 +1,6 @@
 <?php
 
-namespace Yitznewton\TwentyFortyEight\InputDevice;
+namespace Yitznewton\TwentyFortyEight\Input\Device;
 
 class KeyboardInputDevice implements CharacterInputDevice
 {
