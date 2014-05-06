@@ -30,6 +30,6 @@ class MappedInput implements Input
             return $this->keyMap[$char];
         }
 
-        throw new \UnexpectedValueException('Invalid character: ' . $char);
+        throw new UnrecognizedInputException('Unrecognized character: ' . $char);
     }
 }

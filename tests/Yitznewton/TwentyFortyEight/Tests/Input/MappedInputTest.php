@@ -3,6 +3,7 @@
 namespace Yitznewton\TwentyFortyEight\Tests\Input;
 
 use Yitznewton\TwentyFortyEight\Input\MappedInput;
+use Yitznewton\TwentyFortyEight\Input\UnrecognizedInputException;
 use Yitznewton\TwentyFortyEight\Move;
 use Yitznewton\TwentyFortyEight\TestDoubles\CharacterInputStub;
 
@@ -65,7 +66,7 @@ class MappedInputTest extends \PHPUnit_Framework_TestCase
     {
         $this->device->setChar($key);
 
-        $this->setExpectedException(\UnexpectedValueException::class);
+        $this->setExpectedException(UnrecognizedInputException::class);
         $this->input->getMove();
     }
 }
