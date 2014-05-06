@@ -13,6 +13,10 @@ $input = new MappedInput([
     'a' => Move::LEFT,
     's' => Move::DOWN,
     'd' => Move::RIGHT,
+    'i' => Move::UP,
+    'j' => Move::LEFT,
+    'k' => Move::DOWN,
+    'l' => Move::RIGHT,
 ], $device);
 
 while (true) {
