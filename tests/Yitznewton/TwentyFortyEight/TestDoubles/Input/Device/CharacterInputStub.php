@@ -1,6 +1,6 @@
 <?php
 
-namespace Yitznewton\TwentyFortyEight\TestDoubles;
+namespace Yitznewton\TwentyFortyEight\TestDoubles\Input\Device;
 
 use Yitznewton\TwentyFortyEight\Input\Device\CharacterInputDevice;
 
