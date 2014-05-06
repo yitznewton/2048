@@ -20,7 +20,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "*",
-        "phpmd/phpmd": "*",
+        "phpmd/phpmd": "~2.0",
         "squizlabs/php_codesniffer": "*",
         "fabpot/php-cs-fixer": "dev-master"
     },
