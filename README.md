@@ -11,14 +11,14 @@ make ci
 
 ### Manual console tests (for I/O)
 
+This will allow you to test keystrokes:
+
 ```shell
 php tests/manual_io/console_input.php
 ```
 
-This will allow you to test keystrokes.
+This will allow you to test the rendered output on the console:
 
 ```shell
 php tests/manual_io/console_output.php
 ```
-
-This will allow you to test the rendered output on the console.
