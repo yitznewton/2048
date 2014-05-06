@@ -54,9 +54,11 @@ class ConsoleOutput implements Output
     {
         echo '|';
 
+        $centerer = new TextCenterer(TextCenterer::RESOLVE_LEFT);
+
         foreach ($row as $cell) {
             $cellString = $cell ?: '';
-            echo $this->centerText($cellString, 6);
+            echo $centerer->centerText($cellString, 6);
         }
 
         echo "|\n";
@@ -70,25 +72,5 @@ class ConsoleOutput implements Output
     private function clearScreen()
     {
         echo "\033[2J\033[;H";
-    }
-
-    private function centerText($text, $cellSize)
-    {
-        if (strlen($text) > $cellSize) {
-            throw new \UnexpectedValueException('Text larger than cell');
-        }
-
-        if (!$text) {
-            return str_repeat(' ', $cellSize);
-        }
-
-        $centered = '';
-
-        $initialSpaces = floor(($cellSize - strlen($text)) / 2);
-        $centered .= str_repeat(' ', $initialSpaces);
-        $centered .= $text;
-        $centered .= str_repeat(' ', $cellSize - $initialSpaces - strlen($text));
-
-        return $centered;
     }
 }
