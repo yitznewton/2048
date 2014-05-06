@@ -4,9 +4,20 @@ namespace Yitznewton\TwentyFortyEight\Output;
 
 use Yitznewton\TwentyFortyEight\Board;
 
+/**
+ * @SuppressWarnings(PHPMD.TooManyMethods)
+ */
 class ConsoleOutput implements Output
 {
     const BOARD_WIDTH = 26;
+    const GAME_TITLE = '2048';
+
+    private $centerer;
+
+    public function __construct()
+    {
+        $this->centerer = new TextCenterer(TextCenterer::RESOLVE_LEFT);
+    }
 
     /**
      * @param Board $board
@@ -34,7 +45,7 @@ class ConsoleOutput implements Output
     {
         $score = 'SCORE: ' . $score;
         $spaces = str_repeat(' ', self::BOARD_WIDTH - 4 - strlen($score));
-        echo $score . $spaces . '2048' . "\n\n";
+        echo $score . $spaces . self::GAME_TITLE . "\n\n";
     }
 
     private function printBoard(Board $board)
@@ -43,8 +54,13 @@ class ConsoleOutput implements Output
 
         $this->printSolidLine(self::BOARD_WIDTH);
 
-        foreach ($grid as $row) {
+        for ($i = 0; $i < count($grid); $i++) {
+            $row = $grid[$i];
             $this->printRow($row);
+
+            if (!$this->isLastRow($i, $grid)) {
+                $this->printBlankLine(self::BOARD_WIDTH);
+            }
         }
 
         $this->printSolidLine(self::BOARD_WIDTH);
@@ -54,11 +70,9 @@ class ConsoleOutput implements Output
     {
         echo '|';
 
-        $centerer = new TextCenterer(TextCenterer::RESOLVE_LEFT);
-
         foreach ($row as $cell) {
-            $cellString = $cell ?: '';
-            echo $centerer->centerText($cellString, 6);
+            $cellString = $this->cellToString($cell);
+            echo $this->centerer->centerText($cellString, 6);
         }
 
         echo "|\n";
@@ -67,6 +81,28 @@ class ConsoleOutput implements Output
     private function printSolidLine($length)
     {
         echo '+' . str_repeat('-', $length - 2) . '+' . "\n";
+    }
+
+    private function printBlankLine($length)
+    {
+        echo '|' . str_repeat(' ', $length - 2) . '|' . "\n";
+    }
+
+    private function cellToString($cell)
+    {
+        if ($cell === 0) {
+            return '';
+        }
+
+        return $cell;
+    }
+
+    /**
+     * @SuppressWarnings(PHPMD.ShortVariable)
+     */
+    private function isLastRow($i, $grid)
+    {
+        return $i == count($grid) - 1;
     }
 
     private function clearScreen()
