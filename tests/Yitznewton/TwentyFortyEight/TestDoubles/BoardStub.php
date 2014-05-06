@@ -31,4 +31,20 @@ class BoardStub implements Board
     {
         return $this->grid;
     }
+
+    public function initialize()
+    {
+        throw new \BadMethodCallException('initialize() not implemented');
+    }
+
+    public function hasPossibleMoves()
+    {
+        throw new \BadMethodCallException('hasPossibleMoves() not implemented');
+    }
+
+    public function addMove($move)
+    {
+        $move; // PHPMD
+        throw new \BadMethodCallException('addMove() not implemented');
+    }
 }
