@@ -10,6 +10,7 @@ use Yitznewton\TwentyFortyEight\Board;
 class ConsoleOutput implements Output
 {
     const BOARD_WIDTH = 26;
+    const CELL_WIDTH = 6;
     const GAME_TITLE = '2048';
 
     private $centerer;
@@ -74,7 +75,7 @@ class ConsoleOutput implements Output
 
         foreach ($row as $cell) {
             $cellString = $this->cellToString($cell);
-            echo $this->centerer->centerText($cellString, 6);
+            echo $this->centerer->centerText($cellString, self::CELL_WIDTH);
         }
 
         echo "|\n";
