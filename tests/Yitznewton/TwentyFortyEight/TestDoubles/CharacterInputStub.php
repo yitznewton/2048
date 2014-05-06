@@ -2,9 +2,9 @@
 
 namespace Yitznewton\TwentyFortyEight\TestDoubles;
 
-use Yitznewton\TwentyFortyEight\Input\MappedInput;
+use Yitznewton\TwentyFortyEight\InputDevice\CharacterInputDevice;
 
-class MappedInputStub extends MappedInput
+class CharacterInputStub implements CharacterInputDevice
 {
     private $char;
 
@@ -19,7 +19,7 @@ class MappedInputStub extends MappedInput
     /**
      * @return mixed
      */
-    protected function getCharFromDevice()
+    public function getChar()
     {
         return $this->char;
     }

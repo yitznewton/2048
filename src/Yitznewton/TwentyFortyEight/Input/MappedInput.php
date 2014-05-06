@@ -2,16 +2,20 @@
 
 namespace Yitznewton\TwentyFortyEight\Input;
 
-abstract class MappedInput implements Input
+use Yitznewton\TwentyFortyEight\InputDevice\CharacterInputDevice;
+
+class MappedInput implements Input
 {
     private $keyMap;
 
     /**
      * @param array $keyMap
+     * @param CharacterInputDevice $device
      */
-    public function __construct(array $keyMap)
+    public function __construct(array $keyMap, CharacterInputDevice $device)
     {
         $this->keyMap = $keyMap;
+        $this->device = $device;
     }
 
     /**
@@ -20,7 +24,7 @@ abstract class MappedInput implements Input
      */
     public function getMove()
     {
-        $char = $this->getCharFromDevice();
+        $char = $this->device->getChar();
 
         if (isset($this->keyMap[$char])) {
             return $this->keyMap[$char];
@@ -28,9 +32,4 @@ abstract class MappedInput implements Input
 
         throw new \UnexpectedValueException('Invalid character: ' . $char);
     }
-
-    /**
-     * @return mixed
-     */
-    abstract protected function getCharFromDevice();
 }

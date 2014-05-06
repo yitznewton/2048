@@ -2,8 +2,9 @@
 
 namespace Yitznewton\TwentyFortyEight\Tests\Input;
 
+use Yitznewton\TwentyFortyEight\Input\MappedInput;
 use Yitznewton\TwentyFortyEight\Move;
-use Yitznewton\TwentyFortyEight\TestDoubles\MappedInputStub;
+use Yitznewton\TwentyFortyEight\TestDoubles\CharacterInputStub;
 
 class MappedInputTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,11 +16,13 @@ class MappedInputTest extends \PHPUnit_Framework_TestCase
     ];
 
     private $input;
+    private $device;
 
     public function setUp()
     {
         parent::setUp();
-        $this->input = new MappedInputStub(self::$keyMap);
+        $this->device = new CharacterInputStub();
+        $this->input = new MappedInput(self::$keyMap, $this->device);
     }
 
     /**
@@ -51,7 +54,7 @@ class MappedInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetInputWhenMappingExists($key, $move)
     {
-        $this->input->setChar($key);
+        $this->device->setChar($key);
         $this->assertEquals($move, $this->input->getMove());
     }
 
@@ -60,7 +63,7 @@ class MappedInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetInputWhenMappingDoesNotExist($key)
     {
-        $this->input->setChar($key);
+        $this->device->setChar($key);
 
         $this->setExpectedException(\UnexpectedValueException::class);
         $this->input->getMove();
