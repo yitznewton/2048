@@ -2,21 +2,15 @@
 
 namespace Yitznewton\TwentyFortyEight;
 
-class Board
+interface Board
 {
     /**
      * @return int
      */
-    public function getScore()
-    {
-        return -999;
-    }
+    public function getScore();
 
     /**
      * @return array
      */
-    public function getGrid()
-    {
-        throw new \BadMethodCallException('not defined');
-    }
+    public function getGrid();
 }

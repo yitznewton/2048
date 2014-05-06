@@ -27,6 +27,6 @@ class ConsoleKeyboardInput extends MappedInput
      */
     protected function getCharFromDevice()
     {
-        return fread(STDIN, 1);
+        return fread(STDIN);
     }
 }

@@ -4,7 +4,7 @@ namespace Yitznewton\TwentyFortyEight\TestDoubles;
 
 use Yitznewton\TwentyFortyEight\Board;
 
-class BoardStub extends Board
+class BoardStub implements Board
 {
     private $grid;
 
@@ -14,6 +14,14 @@ class BoardStub extends Board
     public function __construct(array $grid)
     {
         $this->grid = $grid;
+    }
+
+    /**
+     * @return int
+     */
+    public function getScore()
+    {
+        return 105678;
     }
 
     /**
