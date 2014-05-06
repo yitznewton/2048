@@ -1,0 +1,24 @@
+<?php
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use Yitznewton\TwentyFortyEight\Input\MappedInput;
+use Yitznewton\TwentyFortyEight\InputDevice\KeyboardInputDevice;
+use Yitznewton\TwentyFortyEight\Move;
+
+$device = new KeyboardInputDevice();
+
+$input = new MappedInput([
+    'w' => Move::UP,
+    'a' => Move::LEFT,
+    's' => Move::DOWN,
+    'd' => Move::RIGHT,
+], $device);
+
+while (true) {
+    try {
+        var_dump($input->getMove());
+    } catch (\UnexpectedValueException $e) {
+        var_dump($e->getMessage());
+    }
+}
