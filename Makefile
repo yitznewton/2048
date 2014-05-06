@@ -9,7 +9,7 @@ phpmd:
 
 phpcs:
 	./vendor/bin/phpcs --standard=psr2 ./src
-	./vendor/bin/phpcs --standard=psr2 ./tests
+	./vendor/bin/phpcs --standard=psr2 ./tests --ignore=./tests/manual_io/console_output.php
 
 php-cs-fixer:
 	./vendor/bin/php-cs-fixer --dry-run --verbose fix ./src --fixers=unused_use

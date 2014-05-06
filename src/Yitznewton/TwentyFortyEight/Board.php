@@ -11,4 +11,12 @@ class Board
     {
         return -999;
     }
+
+    /**
+     * @return array
+     */
+    public function getGrid()
+    {
+        throw new \BadMethodCallException('not defined');
+    }
 }
