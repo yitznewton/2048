@@ -39,13 +39,15 @@ class ConsoleOutput implements Output
     }
 
     /**
-     * @param int $score
+     * @param int $scoreString
      */
-    private function printHeader($score)
+    private function printHeader($scoreString)
     {
-        $score = 'SCORE: ' . $score;
-        $spaces = str_repeat(' ', self::BOARD_WIDTH - 4 - strlen($score));
-        echo $score . $spaces . self::GAME_TITLE . "\n\n";
+        $scoreString = 'SCORE: ' . $scoreString;
+        $spacesCount = self::BOARD_WIDTH - strlen(self::GAME_TITLE) - strlen($scoreString);
+        $spaces = str_repeat(' ', $spacesCount);
+
+        echo $scoreString . $spaces . self::GAME_TITLE . "\n\n";
     }
 
     private function printBoard(Board $board)

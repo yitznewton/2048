@@ -34,11 +34,11 @@ class TextCenterer
             throw new \UnexpectedValueException('Cell width must be at least the length of the text');
         }
 
-        $initialSpaceCount = $this->initialSpaceCount($text, $cellWidth);
-        $initialSpaces = str_repeat(' ', $initialSpaceCount);
+        $initialSpacesCount = $this->initialSpaceCount($text, $cellWidth);
+        $initialSpaces = str_repeat(' ', $initialSpacesCount);
 
-        $closingSpaceCount = $cellWidth - $initialSpaceCount - strlen($text);
-        $closingSpaces = str_repeat(' ', $closingSpaceCount);
+        $closingSpacesCount = $cellWidth - $initialSpacesCount - strlen($text);
+        $closingSpaces = str_repeat(' ', $closingSpacesCount);
 
         return $initialSpaces . $text . $closingSpaces;
     }
