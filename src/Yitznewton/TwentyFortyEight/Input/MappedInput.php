@@ -19,7 +19,7 @@ class MappedInput implements Input
     }
 
     /**
-     * @throws \UnexpectedValueException
+     * @throws UnrecognizedInputException
      * @return mixed
      */
     public function getMove()
