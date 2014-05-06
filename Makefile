@@ -1,4 +1,4 @@
-ci: composer-validate phpmd phpcs php-cs-fixer
+ci: composer-validate phpmd phpcs php-cs-fixer phpunit
 
 composer-validate:
 	./composer.phar validate

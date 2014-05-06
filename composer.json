@@ -12,7 +12,8 @@
     "autoload": {
         "psr-0": {
             "Yitznewton\\TwentyFortyEight\\": "src/",
-            "Yitznewton\\TwentyFortyEight\\Tests\\": "tests/"
+            "Yitznewton\\TwentyFortyEight\\Tests\\": "tests/",
+            "Yitznewton\\TwentyFortyEight\\TestDoubles\\": "tests/"
         }
     },
     "require": {

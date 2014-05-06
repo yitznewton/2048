@@ -2,14 +2,17 @@
 
 namespace Yitznewton\TwentyFortyEight\Input;
 
-use Yitznewton\TwentyFortyEight\Move;
-
-class ConsoleKeyboardInput implements Input
+class ConsoleKeyboardInput extends MappedInput
 {
     private $originalTerminalSettings;
 
-    public function __construct()
+    /**
+     * @param array $keyMap
+     */
+    public function __construct(array $keyMap)
     {
+        parent::__construct($keyMap);
+
         $this->originalTerminalSettings = `stty -g`;
         system('stty -icanon');
     }
@@ -20,31 +23,9 @@ class ConsoleKeyboardInput implements Input
     }
 
     /**
-     * @throws \UnexpectedValueException
-     * @return mixed
-     */
-    public function getMove()
-    {
-        $char = $this->getCharFromKeyboard();
-
-        switch (strtolower($char)) {
-            case 'w':
-                return Move::UP;
-            case 'a':
-                return Move::LEFT;
-            case 's':
-                return Move::DOWN;
-            case 'd':
-                return Move::RIGHT;
-            default:
-                throw new \UnexpectedValueException('Invalid character: ' . $char);
-        }
-    }
-
-    /**
      * @return int
      */
-    private function getCharFromKeyboard()
+    protected function getCharFromDevice()
     {
         return fread(STDIN, 1);
     }
