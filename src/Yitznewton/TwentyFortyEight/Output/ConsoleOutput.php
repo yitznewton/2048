@@ -28,7 +28,7 @@ class ConsoleOutput implements Output
     {
         $this->clearScreen();
         $this->printHeader($board->getScore());
-        $this->printBoard($board);
+        $this->printGrid($board->getGrid());
     }
 
     /**
@@ -51,10 +51,8 @@ class ConsoleOutput implements Output
         echo $scoreString . $spaces . self::GAME_TITLE . "\n\n";
     }
 
-    private function printBoard(Board $board)
+    private function printGrid(array $grid)
     {
-        $grid = $board->getGrid();
-
         $this->printSolidLine(self::BOARD_WIDTH);
 
         for ($i = 0; $i < count($grid); $i++) {
