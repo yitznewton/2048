@@ -40,11 +40,11 @@ class ConsoleOutput implements Output
     }
 
     /**
-     * @param int $scoreString
+     * @param int $score
      */
-    private function printHeader($scoreString)
+    private function printHeader($score)
     {
-        $scoreString = 'SCORE: ' . $scoreString;
+        $scoreString = 'SCORE: ' . $score;
         $spacesCount = self::BOARD_WIDTH - strlen(self::GAME_TITLE) - strlen($scoreString);
         $spaces = str_repeat(' ', $spacesCount);
 
