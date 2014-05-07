@@ -46,7 +46,9 @@ class MappedInputTest extends \PHPUnit_Framework_TestCase
     public function getUndefinedKeyMappings()
     {
         return [
-            ['t', 'i', chr(1),]
+            ['t'],
+            ['i'],
+            [chr(1)],
         ];
     }
 
