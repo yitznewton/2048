@@ -9,7 +9,7 @@ class BoardStub implements Board
     private $grid;
 
     /**
-     * @param array $grid
+     * @param int[][] $grid
      */
     public function __construct(array $grid)
     {
@@ -25,7 +25,7 @@ class BoardStub implements Board
     }
 
     /**
-     * @return array
+     * @return int[][]
      */
     public function getGrid()
     {

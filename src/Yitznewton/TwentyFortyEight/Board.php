@@ -4,6 +4,8 @@ namespace Yitznewton\TwentyFortyEight;
 
 interface Board
 {
+    const EMPTY_CELL = -1;
+
     /**
      * @return void
      */
@@ -26,7 +28,7 @@ interface Board
     public function getScore();
 
     /**
-     * @return array
+     * @return int[][]
      */
     public function getGrid();
 }

@@ -91,7 +91,7 @@ class ConsoleOutput implements Output
 
     private function cellToString($cell)
     {
-        if ($cell === 0) {
+        if ($cell == Board::EMPTY_CELL) {
             return '';
         }
 

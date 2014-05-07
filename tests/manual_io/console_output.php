@@ -10,8 +10,8 @@ $output = new ConsoleOutput();
 $board = new BoardStub([
     [2,4,1024,8],
     [2,256,4,8],
-    [0,4,8,8],
-    [8,0,16,4],
+    [-1,4,8,8],
+    [8,-1,16,4],
 ]);
 
 $output->renderBoard($board);
