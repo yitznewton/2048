@@ -9,7 +9,6 @@ use Yitznewton\TwentyFortyEight\Board;
  */
 class ConsoleOutput implements Output
 {
-    const BOARD_WIDTH = 26;
     const CELL_WIDTH = 6;
     const GAME_TITLE = '2048';
 
@@ -27,7 +26,7 @@ class ConsoleOutput implements Output
     public function renderBoard(Board $board)
     {
         $this->clearScreen();
-        $this->printHeader($board->getScore());
+        $this->printHeader($board);
         $this->printGrid($board->getGrid());
     }
 
@@ -40,12 +39,14 @@ class ConsoleOutput implements Output
     }
 
     /**
-     * @param int $score
+     * @param Board $board
      */
-    private function printHeader($score)
+    private function printHeader(Board $board)
     {
-        $scoreString = 'SCORE: ' . $score;
-        $spacesCount = self::BOARD_WIDTH - strlen(self::GAME_TITLE) - strlen($scoreString);
+        $boardWidth = $this->calculateBoardWidth($board->getGrid());
+        $scoreString = 'SCORE: ' . $board->getScore();
+
+        $spacesCount = $boardWidth - strlen(self::GAME_TITLE) - strlen($scoreString);
         $spaces = str_repeat(' ', $spacesCount);
 
         echo $scoreString . $spaces . self::GAME_TITLE . "\n\n";
@@ -53,18 +54,20 @@ class ConsoleOutput implements Output
 
     private function printGrid(array $grid)
     {
-        $this->printSolidLine(self::BOARD_WIDTH);
+        $boardWidth = $this->calculateBoardWidth($grid);
+
+        $this->printSolidLine($boardWidth);
 
         for ($i = 0; $i < count($grid); $i++) {
             $row = $grid[$i];
             $this->printRow($row);
 
             if (!$this->isLastRow($i, $grid)) {
-                $this->printBlankLine(self::BOARD_WIDTH);
+                $this->printBlankLine($boardWidth);
             }
         }
 
-        $this->printSolidLine(self::BOARD_WIDTH);
+        $this->printSolidLine($boardWidth);
     }
 
     private function printRow(array $row)
@@ -104,6 +107,12 @@ class ConsoleOutput implements Output
     private function isLastRow($i, $grid)
     {
         return $i == count($grid) - 1;
+    }
+
+    private function calculateBoardWidth(array $grid)
+    {
+        $combinedBorderWidth = 2;
+        return count($grid) * self::CELL_WIDTH + $combinedBorderWidth;
     }
 
     private function clearScreen()
