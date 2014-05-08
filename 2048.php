@@ -1,11 +1,12 @@
 <?php
 
-use Yitznewton\TwentyFortyEight\Board;
+use Yitznewton\TwentyFortyEight\InitialBoard;
 use Yitznewton\TwentyFortyEight\Input\Device\KeyboardInputDevice;
 use Yitznewton\TwentyFortyEight\Input\MappedInput;
 use Yitznewton\TwentyFortyEight\Input\UnrecognizedInputException;
 use Yitznewton\TwentyFortyEight\Move;
 use Yitznewton\TwentyFortyEight\Output\ConsoleOutput;
+use Yitznewton\TwentyFortyEight\Scorer;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -24,8 +25,10 @@ $input = new MappedInput([
 
 $output = new ConsoleOutput();
 
-$board = new Board();
-$output->renderBoard($board);
+$board = new InitialBoard();
+$scorer = new Scorer();
+$score = 0;
+$output->renderBoard($board, $score);
 
 while ($board->hasPossibleMoves()) {
     try {
@@ -35,8 +38,9 @@ while ($board->hasPossibleMoves()) {
         continue;
     }
 
+    $score += $scorer->forMove($board->getGrid(), $move);
     $board = $board->addMove($move);
-    $output->renderBoard($board);
+    $output->renderBoard($board, $score);
 }
 
-$output->renderGameOver($board->getScore());
+$output->renderGameOver($score);
