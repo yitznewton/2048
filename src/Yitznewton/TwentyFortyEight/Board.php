@@ -49,8 +49,8 @@ class Board
      */
     public function addMove($move)
     {
-        $flipper = new GridFlipper($move);
-        $newGrid = $flipper->flip($this->grid, $move);
+        $rotater = new GridRotater($move);
+        $newGrid = $rotater->rotateForMove($this->grid, $move);
 
         for ($i = 0; $i < count($newGrid); $i++) {
             for ($j = 0; $j < count($newGrid[$i]) - 1; $j++) {
@@ -70,7 +70,7 @@ class Board
             }
         }
 
-        return new Board($flipper->unflip($newGrid));
+        return new Board($rotater->unrotateForMove($newGrid));
     }
 
     private function shift($grid, $shiftPoint)

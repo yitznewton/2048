@@ -2,13 +2,13 @@
 
 namespace Yitznewton\TwentyFortyEight;
 
-class GridFlipper
+class GridRotater
 {
     /**
      * @param array $grid
      * @return array
      */
-    public function flip(array $grid)
+    public function rotateForMove(array $grid)
     {
         return $grid;
     }
@@ -17,7 +17,7 @@ class GridFlipper
      * @param array $grid
      * @return array
      */
-    public function unflip(array $grid)
+    public function unrotateForMove(array $grid)
     {
         return $grid;
     }
