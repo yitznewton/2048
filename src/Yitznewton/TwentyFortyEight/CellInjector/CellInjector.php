@@ -2,11 +2,14 @@
 
 namespace Yitznewton\TwentyFortyEight\CellInjector;
 
-interface CellInjector
+class CellInjector
 {
     /**
      * @param array $grid
      * @return array
      */
-    public function inject(array $grid);
+    public function inject(array $grid)
+    {
+        $grid; // PHPMD
+    }
 }

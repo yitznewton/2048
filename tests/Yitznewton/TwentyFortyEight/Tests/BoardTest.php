@@ -3,7 +3,6 @@
 namespace Yitznewton\TwentyFortyEight\Tests;
 
 use Yitznewton\TwentyFortyEight\Board;
-use Yitznewton\TwentyFortyEight\CellInjector\NullCellInjector;
 use Yitznewton\TwentyFortyEight\Move;
 
 class BoardTest extends \PHPUnit_Framework_TestCase
@@ -225,8 +224,6 @@ class BoardTest extends \PHPUnit_Framework_TestCase
 
     private function getBoard($grid)
     {
-        $board = new Board($grid);
-        $board->setCellInjector(new NullCellInjector());
-        return $board;
+        return new Board($grid);
     }
 }
