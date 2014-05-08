@@ -7,7 +7,7 @@ use Yitznewton\TwentyFortyEight\Move;
 
 class BoardTest extends \PHPUnit_Framework_TestCase
 {
-    public function getForDifferingAdjacentCells()
+    public function dataForDifferingAdjacentCells()
     {
         return [
             [
@@ -57,7 +57,7 @@ class BoardTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function getForMerge()
+    public function dataForMerge()
     {
         return [
             [
@@ -83,6 +83,60 @@ class BoardTest extends \PHPUnit_Framework_TestCase
                     [4,4],
                 ],
                 Move::DOWN,
+            ],
+        ];
+    }
+
+    public function dataForHasPossibleMoves()
+    {
+        return [
+            [
+                [
+                    [2,4,8],
+                    [-1,16,32],
+                    [64,128,256],
+                ],
+                true,
+            ],
+            [
+                [
+                    [2,-1,8],
+                    [4,16,32],
+                    [64,128,256],
+                ],
+                true,
+            ],
+            [
+                [
+                    [2,32,8],
+                    [4,16,-1],
+                    [64,128,256],
+                ],
+                true,
+            ],
+            [
+                [
+                    [2,32,8],
+                    [4,16,128],
+                    [64,-1,256],
+                ],
+                true,
+            ],
+            [
+                [
+                    [2,32,8],
+                    [4,16,128],
+                    [64,16,256],
+                ],
+                true,
+            ],
+            [
+                [
+                    [2,4,8],
+                    [512,16,32],
+                    [64,128,256],
+                ],
+                false,
             ],
         ];
     }
@@ -120,7 +174,7 @@ class BoardTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider getForDifferingAdjacentCells
+     * @dataProvider dataForDifferingAdjacentCells
      * @param array $grid
      * @param array $expected
      * @param mixed $move
@@ -147,7 +201,7 @@ class BoardTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider getForMerge
+     * @dataProvider dataForMerge
      * @param array $grid
      * @param array $expected
      * @param mixed $move
@@ -156,5 +210,15 @@ class BoardTest extends \PHPUnit_Framework_TestCase
     {
         $initialBoard = new Board($grid);
         $this->assertEquals($expected, $initialBoard->addMove($move)->getGrid());
+    }
+
+    /**
+     * @dataProvider dataForHasPossibleMoves
+     * @param array $grid
+     * @param bool $expected
+     */
+    public function testHasPossibleMoves(array $grid, $expected)
+    {
+        $this->assertSame($expected, (new Board($grid))->hasPossibleMoves());
     }
 }

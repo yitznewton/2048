@@ -24,7 +24,18 @@ class Board
      */
     public function hasPossibleMoves()
     {
-        return null;
+        $rotater = new GridRotater();
+        $grid = $this->grid;
+
+        $moveResults = array_map(function ($move) use ($rotater, $grid) {
+            $grid = $rotater->rotateForMove($grid, $move);
+
+            return array_reduce($grid, function ($carry, $row) {
+                return $carry || $row != $this->collapseAndPadRow($row);
+            }, false);
+        }, Move::getAll());
+
+        return (bool) array_filter($moveResults);
     }
 
     /**
@@ -54,13 +65,18 @@ class Board
         $rotatedGrid = $rotater->rotateForMove($this->grid, $move);
 
         $calculatedGrid = array_map(function ($row) {
-            $collapsedRow = $this->collapseRow($row);
-            return $this->padRowWithEmptyCells($collapsedRow, count($this->grid));
+            return $this->collapseAndPadRow($row);
         }, $rotatedGrid);
 
         $unrotatedGrid = $rotater->unrotateForMove($calculatedGrid, $move);
 
         return new Board($unrotatedGrid);
+    }
+
+    private function collapseAndPadRow($row)
+    {
+        $collapsedRow = $this->collapseRow($row);
+        return $this->padRowWithEmptyCells($collapsedRow, count($row));
     }
 
     private function collapseRow($row)

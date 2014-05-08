@@ -11,4 +11,14 @@ abstract class Move
     const DOWN = 2;
     const LEFT = 3;
     const RIGHT = 4;
+
+    public static function getAll()
+    {
+        return [
+            self::UP,
+            self::DOWN,
+            self::LEFT,
+            self::RIGHT,
+        ];
+    }
 }
