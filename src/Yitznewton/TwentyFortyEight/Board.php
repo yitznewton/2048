@@ -49,7 +49,8 @@ class Board
      */
     public function addMove($move)
     {
-        $newGrid = $this->flip($this->grid, $move);
+        $flipper = new GridFlipper($move);
+        $newGrid = $flipper->flip($this->grid, $move);
 
         for ($i = 0; $i < count($newGrid); $i++) {
             for ($j = 0; $j < count($newGrid[$i]) - 1; $j++) {
@@ -68,20 +69,8 @@ class Board
                 }
             }
         }
-        
-        return new Board($this->unflip($newGrid, $move));
-    }
 
-    private function flip($grid, $move)
-    {
-        $move;  // PHPMD
-        return $grid;
-    }
-
-    private function unflip($grid, $move)
-    {
-        $move;  // PHPMD
-        return $grid;
+        return new Board($flipper->unflip($newGrid));
     }
 
     private function shift($grid, $shiftPoint)
