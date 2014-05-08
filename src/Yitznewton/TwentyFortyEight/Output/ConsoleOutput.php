@@ -20,15 +20,15 @@ class ConsoleOutput implements Output
     }
 
     /**
-     * @param Board $board
+     * @param array $grid
      * @param int $score
      * @return void
      */
-    public function renderBoard(Board $board, $score)
+    public function renderBoard(array $grid, $score)
     {
         $this->clearScreen();
-        $this->printHeader($board, $score);
-        $this->printGrid($board->getGrid());
+        $this->printHeader($grid, $score);
+        $this->printGrid($grid);
     }
 
     /**
@@ -40,12 +40,12 @@ class ConsoleOutput implements Output
     }
 
     /**
-     * @param Board $board
+     * @param array $grid
      * @param int $score
      */
-    private function printHeader(Board $board, $score)
+    private function printHeader(array $grid, $score)
     {
-        $boardWidth = $this->calculateBoardWidth($board->getGrid());
+        $boardWidth = $this->calculateBoardWidth($grid);
         $scoreString = 'SCORE: ' . $score;
 
         $spacesCount = $boardWidth - strlen(self::GAME_TITLE) - strlen($scoreString);

@@ -41,14 +41,6 @@ class Board
     }
 
     /**
-     * @return int[][]
-     */
-    public function getGrid()
-    {
-        return $this->grid;
-    }
-
-    /**
      * @param mixed $move One of the values in the Move pseudo-enum
      * @return Board
      */
@@ -65,7 +57,7 @@ class Board
         $unrotatedGrid = $rotater->unrotateForMove($calculatedGrid, $move);
         $augmentedGrid = $this->cellInjector->inject($unrotatedGrid);
 
-        return new Board($augmentedGrid);
+        return $augmentedGrid;
     }
 
     public function setCellInjector(CellInjector $cellInjector)

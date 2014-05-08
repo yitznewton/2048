@@ -149,12 +149,12 @@ class BoardTest extends \PHPUnit_Framework_TestCase
             [2,-1],
         ]);
 
-        $expectedBoard = $this->getBoard([
+        $expected = [
             [2,-1],
             [2,-1],
-        ]);
+        ];
 
-        $this->assertEquals($expectedBoard, $initialBoard->addMove(Move::LEFT));
+        $this->assertEquals($expected, $initialBoard->addMove(Move::LEFT));
     }
 
     public function testAddMoveEmptiesCollapseFully()
@@ -165,13 +165,13 @@ class BoardTest extends \PHPUnit_Framework_TestCase
             [2,4,8],
         ]);
 
-        $expectedBoard = $this->getBoard([
+        $expected = [
             [2,-1,-1],
             [4,-1,-1],
             [2,4,8],
-        ]);
+        ];
 
-        $this->assertEquals($expectedBoard, $initialBoard->addMove(Move::LEFT));
+        $this->assertEquals($expected, $initialBoard->addMove(Move::LEFT));
     }
 
     /**
@@ -183,7 +183,7 @@ class BoardTest extends \PHPUnit_Framework_TestCase
     public function testAddMoveWithDifferingAdjacentCells(array $grid, array $expected, $move)
     {
         $initialBoard = $this->getBoard($grid);
-        $this->assertEquals($expected, $initialBoard->addMove($move)->getGrid());
+        $this->assertEquals($expected, $initialBoard->addMove($move));
     }
 
     public function testAddShiftIntoEmpty()
@@ -193,12 +193,12 @@ class BoardTest extends \PHPUnit_Framework_TestCase
             [2,4],
         ]);
 
-        $expectedBoard = $this->getBoard([
+        $expected = [
             [2,-1],
             [2,4],
-        ]);
+        ];
 
-        $this->assertEquals($expectedBoard, $initialBoard->addMove(Move::LEFT));
+        $this->assertEquals($expected, $initialBoard->addMove(Move::LEFT));
     }
 
     /**
@@ -210,7 +210,7 @@ class BoardTest extends \PHPUnit_Framework_TestCase
     public function testAddMoveWithCellsToMerge(array $grid, array $expected, $move)
     {
         $initialBoard = $this->getBoard($grid);
-        $this->assertEquals($expected, $initialBoard->addMove($move)->getGrid());
+        $this->assertEquals($expected, $initialBoard->addMove($move));
     }
 
     /**
