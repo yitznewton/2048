@@ -6,22 +6,24 @@ class Scorer
 {
     /**
      * @param array $startingGrid
-     * @param int $cumulative
      * @return int
      */
-    public function forMove(array $startingGrid, $cumulative = 0)
+    public function forMove(array $startingGrid)
     {
-        $row = $startingGrid[0];
+        return array_sum(array_map([$this, 'forRow'], $startingGrid));
+    }
 
+    private function forRow($row, $cumulative = 0)
+    {
         if (count($row) < 2) {
             return $cumulative;
         }
 
         if ($row[0] == $row[1]) {
             $cumulative += $row[0] + $row[1];
-            return $this->forMove([array_slice($row, 2)], $cumulative);
+            return $this->forRow(array_slice($row, 2), $cumulative);
         }
 
-        return $this->forMove([array_slice($row, 1)], $cumulative);
+        return $this->forRow(array_slice($row, 1), $cumulative);
     }
 }
