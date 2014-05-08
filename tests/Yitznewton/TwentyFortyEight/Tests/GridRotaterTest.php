@@ -119,6 +119,18 @@ class GridRotaterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, (new GridRotater())->rotateForMove($grid, $move));
     }
 
+    /**
+     * @dataProvider getGridsForTestRotateForMove
+     * @param array $grid
+     * @param mixed $move
+     */
+    public function testUnrotateForMove($grid, $move)
+    {
+        $rotater = new GridRotater();
+        $rotated = $rotater->rotateForMove($grid, $move);
+        $this->assertEquals($grid, $rotater->unrotateForMove($rotated, $move));
+    }
+
     public function testRotateForMoveWithInvalidMove()
     {
         $this->setExpectedException(\UnexpectedValueException::class);

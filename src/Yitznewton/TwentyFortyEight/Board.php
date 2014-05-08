@@ -70,7 +70,7 @@ class Board
             }
         }
 
-        return new Board($rotater->unrotateForMove($newGrid));
+        return new Board($rotater->unrotateForMove($newGrid, $move));
     }
 
     private function shift($grid, $shiftPoint)

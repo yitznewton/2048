@@ -18,9 +18,9 @@ class GridRotater
      * @param array $grid
      * @return array
      */
-    public function unrotateForMove(array $grid)
+    public function unrotateForMove(array $grid, $move)
     {
-        return $grid;
+        return $this->rotate($grid, 4 - $this->rotationsForMove($move));
     }
 
     /**

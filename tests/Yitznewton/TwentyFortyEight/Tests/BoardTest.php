@@ -39,7 +39,6 @@ class BoardTest extends \PHPUnit_Framework_TestCase
 
     public function testAddMoveTwoDifferentUp()
     {
-        $this->markTestIncomplete();
         $initialBoard = new Board([
             [2,2],
             [4,-1],
