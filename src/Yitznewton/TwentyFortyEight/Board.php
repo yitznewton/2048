@@ -49,7 +49,27 @@ class Board
      */
     public function addMove($move)
     {
-        $move;  // PHPMD
-        return new Board();
+        $newGrid = $this->grid;
+
+        for ($i = 0; $i < count($newGrid); $i++) {
+            $row = $newGrid[$i];
+
+            for ($j = 0; $j < count($row) - 1; $j++) {
+                $cell = $row[$j];
+
+                if ($cell == Board::EMPTY_CELL) {
+                    continue;
+                }
+
+                $adjacentCell = $row[$j+1];
+
+                if ($cell == $adjacentCell) {
+                    $newGrid[$i][$j] += $adjacentCell;
+                    $newGrid[$i][$j+1] = Board::EMPTY_CELL;
+                }
+            }
+        }
+        
+        return new Board($newGrid);
     }
 }
