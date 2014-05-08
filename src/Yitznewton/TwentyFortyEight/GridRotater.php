@@ -6,11 +6,12 @@ class GridRotater
 {
     /**
      * @param array $grid
+     * @param mixed $move
      * @return array
      */
-    public function rotateForMove(array $grid)
+    public function rotateForMove(array $grid, $move)
     {
-        return $grid;
+        return $this->rotate($grid, $this->rotationsForMove($move));
     }
 
     /**
@@ -42,5 +43,21 @@ class GridRotater
         }
 
         return $this->rotate(array_map('array_reverse', $rotated), $numberOfRotations-1);
+    }
+
+    private function rotationsForMove($move)
+    {
+        switch ($move) {
+            case Move::LEFT:
+                return 0;
+            case Move::DOWN:
+                return 1;
+            case Move::RIGHT:
+                return 2;
+            case Move::UP:
+                return 3;
+            default:
+                throw new \UnexpectedValueException('Unrecognized move');
+        }
     }
 }
