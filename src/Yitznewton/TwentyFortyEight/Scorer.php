@@ -6,11 +6,13 @@ class Scorer
 {
     /**
      * @param array $startingGrid
+     * @param mixed $move
      * @return int
      */
-    public function forMove(array $startingGrid)
+    public function forMove(array $startingGrid, $move)
     {
-        return array_sum(array_map([$this, 'forRow'], $startingGrid));
+        $rotatedGrid = (new GridRotater())->rotateForMove($startingGrid, $move);
+        return array_sum(array_map([$this, 'forRow'], $rotatedGrid));
     }
 
     private function forRow($row, $cumulative = 0)

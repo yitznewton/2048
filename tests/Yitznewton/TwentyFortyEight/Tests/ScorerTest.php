@@ -40,6 +40,14 @@ class ScorerTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 [
+                    [2,4],
+                    [2,8],
+                ],
+                Move::UP,
+                4
+            ],
+            [
+                [
                     [4,4,2,2],
                     [4,4,2,2],
                 ],
@@ -58,6 +66,6 @@ class ScorerTest extends \PHPUnit_Framework_TestCase
     public function testGetScore($startingGrid, $move, $expected)
     {
         $move;  // PHPMD
-        $this->assertSame($expected, (new Scorer())->forMove($startingGrid));
+        $this->assertSame($expected, (new Scorer())->forMove($startingGrid, $move));
     }
 }
