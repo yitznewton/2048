@@ -3,6 +3,7 @@
 namespace Yitznewton\TwentyFortyEight\Tests;
 
 use Yitznewton\TwentyFortyEight\Board;
+use Yitznewton\TwentyFortyEight\CellInjector\NullCellInjector;
 use Yitznewton\TwentyFortyEight\Move;
 
 class BoardTest extends \PHPUnit_Framework_TestCase
@@ -143,12 +144,12 @@ class BoardTest extends \PHPUnit_Framework_TestCase
 
     public function testAddMoveWithEmptyAdjacentCells()
     {
-        $initialBoard = new Board([
+        $initialBoard = $this->getBoard([
             [2,-1],
             [2,-1],
         ]);
 
-        $expectedBoard = new Board([
+        $expectedBoard = $this->getBoard([
             [2,-1],
             [2,-1],
         ]);
@@ -158,13 +159,13 @@ class BoardTest extends \PHPUnit_Framework_TestCase
 
     public function testAddMoveEmptiesCollapseFully()
     {
-        $initialBoard = new Board([
+        $initialBoard = $this->getBoard([
             [-1,-1,2],
             [-1,2,2],
             [2,4,8],
         ]);
 
-        $expectedBoard = new Board([
+        $expectedBoard = $this->getBoard([
             [2,-1,-1],
             [4,-1,-1],
             [2,4,8],
@@ -181,18 +182,18 @@ class BoardTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddMoveWithDifferingAdjacentCells(array $grid, array $expected, $move)
     {
-        $initialBoard = new Board($grid);
+        $initialBoard = $this->getBoard($grid);
         $this->assertEquals($expected, $initialBoard->addMove($move)->getGrid());
     }
 
     public function testAddShiftIntoEmpty()
     {
-        $initialBoard = new Board([
+        $initialBoard = $this->getBoard([
             [-1,2],
             [2,4],
         ]);
 
-        $expectedBoard = new Board([
+        $expectedBoard = $this->getBoard([
             [2,-1],
             [2,4],
         ]);
@@ -208,7 +209,7 @@ class BoardTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddMoveWithCellsToMerge(array $grid, array $expected, $move)
     {
-        $initialBoard = new Board($grid);
+        $initialBoard = $this->getBoard($grid);
         $this->assertEquals($expected, $initialBoard->addMove($move)->getGrid());
     }
 
@@ -219,6 +220,13 @@ class BoardTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasPossibleMoves(array $grid, $expected)
     {
-        $this->assertSame($expected, (new Board($grid))->hasPossibleMoves());
+        $this->assertSame($expected, $this->getBoard($grid)->hasPossibleMoves());
+    }
+
+    private function getBoard($grid)
+    {
+        $board = new Board($grid);
+        $board->setCellInjector(new NullCellInjector());
+        return $board;
     }
 }

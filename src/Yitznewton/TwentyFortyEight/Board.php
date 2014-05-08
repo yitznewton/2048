@@ -2,6 +2,7 @@
 
 namespace Yitznewton\TwentyFortyEight;
 
+use Yitznewton\TwentyFortyEight\CellInjector\CellInjector;
 use Yitznewton\TwentyFortyEight\CellInjector\NullCellInjector;
 
 class Board
@@ -65,6 +66,11 @@ class Board
         $augmentedGrid = $this->cellInjector->inject($unrotatedGrid);
 
         return new Board($augmentedGrid);
+    }
+
+    public function setCellInjector(CellInjector $cellInjector)
+    {
+        $this->cellInjector = $cellInjector;
     }
 
     private function collapseAndPadRow($row)
