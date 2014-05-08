@@ -1,6 +1,6 @@
 <?php
 
-namespace Yitznewton\TwentyFortyEight\CellInjector;
+namespace Yitznewton\TwentyFortyEight;
 
 class CellInjector
 {
