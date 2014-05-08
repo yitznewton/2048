@@ -1,6 +1,6 @@
 <?php
 
-use Yitznewton\TwentyFortyEight\BoardImplementation;
+use Yitznewton\TwentyFortyEight\Board;
 use Yitznewton\TwentyFortyEight\Input\Device\KeyboardInputDevice;
 use Yitznewton\TwentyFortyEight\Input\MappedInput;
 use Yitznewton\TwentyFortyEight\Input\UnrecognizedInputException;
@@ -24,8 +24,7 @@ $input = new MappedInput([
 
 $output = new ConsoleOutput();
 
-$board = new BoardImplementation();
-$board->initialize();
+$board = new Board();
 $output->renderBoard($board);
 
 while ($board->hasPossibleMoves()) {
@@ -36,7 +35,7 @@ while ($board->hasPossibleMoves()) {
         continue;
     }
 
-    $board->addMove($move);
+    $board = $board->addMove($move);
     $output->renderBoard($board);
 }
 

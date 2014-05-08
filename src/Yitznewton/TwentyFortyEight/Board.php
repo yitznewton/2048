@@ -2,33 +2,54 @@
 
 namespace Yitznewton\TwentyFortyEight;
 
-interface Board
+class Board
 {
     const EMPTY_CELL = -1;
 
+    private $grid;
+    private $score;
+
     /**
-     * @return void
+     * @param int[][] $grid
+     * @param int $score
      */
-    public function initialize();
+    public function __construct(array $grid, $score)
+    {
+        $this->grid = $grid;
+        $this->score = $score;
+    }
 
     /**
      * @return bool
      */
-    public function hasPossibleMoves();
-
-    /**
-     * @param mixed $move One of the values in the Move pseudo-enum
-     * @return void
-     */
-    public function addMove($move);
+    public function hasPossibleMoves()
+    {
+        return null;
+    }
 
     /**
      * @return int
      */
-    public function getScore();
+    public function getScore()
+    {
+        return $this->score;
+    }
 
     /**
      * @return int[][]
      */
-    public function getGrid();
+    public function getGrid()
+    {
+        return $this->grid;
+    }
+
+    /**
+     * @param mixed $move One of the values in the Move pseudo-enum
+     * @return Board
+     */
+    public function addMove($move)
+    {
+        $move;  // PHPMD
+        return new Board();
+    }
 }
