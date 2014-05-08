@@ -54,6 +54,13 @@ class ScorerTest extends \PHPUnit_Framework_TestCase
                 Move::LEFT,
                 24
             ],
+            [
+                [
+                    [-1,-1],
+                ],
+                Move::LEFT,
+                0
+            ],
         ];
     }
 
