@@ -27,7 +27,7 @@ class Board
         $rotater = new GridRotater();
         $grid = $this->grid;
 
-        $moveResults = array_map(function ($move) use ($rotater, $grid) {
+        $possibilityByMove = array_map(function ($move) use ($rotater, $grid) {
             $grid = $rotater->rotateForMove($grid, $move);
 
             return array_reduce($grid, function ($carry, $row) {
@@ -35,7 +35,7 @@ class Board
             }, false);
         }, Move::getAll());
 
-        return (bool) array_filter($moveResults);
+        return (bool) array_filter($possibilityByMove);
     }
 
     /**
