@@ -1,6 +1,6 @@
 <?php
 
-use Yitznewton\TwentyFortyEight\InitialBoard;
+use Yitznewton\TwentyFortyEight\Board;
 use Yitznewton\TwentyFortyEight\Input\Device\KeyboardInputDevice;
 use Yitznewton\TwentyFortyEight\Input\MappedInput;
 use Yitznewton\TwentyFortyEight\Input\UnrecognizedInputException;
@@ -25,10 +25,14 @@ $input = new MappedInput([
 
 $output = new ConsoleOutput();
 
-$board = new InitialBoard();
+$grid = [
+    [-1,2],
+    [2,-1],
+];
+$board = new Board($grid);
 $scorer = new Scorer();
 $score = 0;
-$output->renderBoard($board, $score);
+$output->renderBoard($grid, $score);
 
 while ($board->hasPossibleMoves()) {
     try {
@@ -38,9 +42,10 @@ while ($board->hasPossibleMoves()) {
         continue;
     }
 
-    $score += $scorer->forMove($board->getGrid(), $move);
-    $board = $board->addMove($move);
-    $output->renderBoard($board, $score);
+    $score += $scorer->forMove($grid, $move);
+    $grid = $board->addMove($move);
+    $board = new Board($grid);
+    $output->renderBoard($grid, $score);
 }
 
 $output->renderGameOver($score);
