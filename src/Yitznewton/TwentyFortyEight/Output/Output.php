@@ -8,9 +8,10 @@ interface Output
 {
     /**
      * @param Board $board
+     * @param int $score
      * @return void
      */
-    public function renderBoard(Board $board);
+    public function renderBoard(Board $board, $score);
 
     /**
      * @param int $score

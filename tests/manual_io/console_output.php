@@ -14,8 +14,8 @@ $board = new Board([
     [8,-1,16,4],
 ], 33487);
 
-$output->renderBoard($board);
-$output->renderGameOver($board->getScore());
+$output->renderBoard($board, 239348);
+$output->renderGameOver(1252345);
 
 $board = new Board([
     [2,4,1024,8,16],
@@ -25,5 +25,5 @@ $board = new Board([
     [8,2,16,64,-1],
 ], 134875);
 
-$output->renderBoard($board);
-$output->renderGameOver($board->getScore());
+$output->renderBoard($board, 2314);
+$output->renderGameOver(34987);

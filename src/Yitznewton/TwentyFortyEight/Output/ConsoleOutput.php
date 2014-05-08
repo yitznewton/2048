@@ -21,12 +21,13 @@ class ConsoleOutput implements Output
 
     /**
      * @param Board $board
+     * @param int $score
      * @return void
      */
-    public function renderBoard(Board $board)
+    public function renderBoard(Board $board, $score)
     {
         $this->clearScreen();
-        $this->printHeader($board);
+        $this->printHeader($board, $score);
         $this->printGrid($board->getGrid());
     }
 
@@ -40,11 +41,12 @@ class ConsoleOutput implements Output
 
     /**
      * @param Board $board
+     * @param int $score
      */
-    private function printHeader(Board $board)
+    private function printHeader(Board $board, $score)
     {
         $boardWidth = $this->calculateBoardWidth($board->getGrid());
-        $scoreString = 'SCORE: ' . $board->getScore();
+        $scoreString = 'SCORE: ' . $score;
 
         $spacesCount = $boardWidth - strlen(self::GAME_TITLE) - strlen($scoreString);
         $spaces = str_repeat(' ', $spacesCount);
