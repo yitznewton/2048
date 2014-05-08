@@ -2,11 +2,14 @@
 
 namespace Yitznewton\TwentyFortyEight;
 
+use Yitznewton\TwentyFortyEight\CellInjector\NullCellInjector;
+
 class Board
 {
     const EMPTY_CELL = -1;
 
     private $grid;
+    private $cellInjector;
 
     /**
      * @param int[][] $grid
@@ -14,6 +17,7 @@ class Board
     public function __construct(array $grid)
     {
         $this->grid = $grid;
+        $this->cellInjector = new NullCellInjector();
     }
 
     /**
@@ -58,8 +62,9 @@ class Board
         }, $rotatedGrid);
 
         $unrotatedGrid = $rotater->unrotateForMove($calculatedGrid, $move);
+        $augmentedGrid = $this->cellInjector->inject($unrotatedGrid);
 
-        return new Board($unrotatedGrid);
+        return new Board($augmentedGrid);
     }
 
     private function collapseAndPadRow($row)
