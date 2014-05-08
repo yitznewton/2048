@@ -7,16 +7,13 @@ class Board
     const EMPTY_CELL = -1;
 
     private $grid;
-    private $score;
 
     /**
      * @param int[][] $grid
-     * @param int $score
      */
-    public function __construct(array $grid, $score = 0)
+    public function __construct(array $grid)
     {
         $this->grid = $grid;
-        $this->score = $score;
     }
 
     /**
@@ -36,14 +33,6 @@ class Board
         }, Move::getAll());
 
         return (bool) array_filter($possibilityByMove);
-    }
-
-    /**
-     * @return int
-     */
-    public function getScore()
-    {
-        return $this->score;
     }
 
     /**
