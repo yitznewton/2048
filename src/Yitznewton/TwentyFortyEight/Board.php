@@ -13,7 +13,7 @@ class Board
      * @param int[][] $grid
      * @param int $score
      */
-    public function __construct(array $grid, $score)
+    public function __construct(array $grid, $score = 0)
     {
         $this->grid = $grid;
         $this->score = $score;

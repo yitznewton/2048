@@ -2,7 +2,7 @@
 
 namespace Yitznewton\TwentyFortyEight\Tests;
 
-class BoardImplementationTest extends \PHPUnit_Framework_TestCase
+class BoardTest extends \PHPUnit_Framework_TestCase
 {
     public static function setUpBeforeClass()
     {
