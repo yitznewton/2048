@@ -49,27 +49,45 @@ class Board
      */
     public function addMove($move)
     {
-        $newGrid = $this->grid;
+        $newGrid = $this->flip($this->grid, $move);
 
         for ($i = 0; $i < count($newGrid); $i++) {
-            $row = $newGrid[$i];
-
-            for ($j = 0; $j < count($row) - 1; $j++) {
-                $cell = $row[$j];
+            for ($j = 0; $j < count($newGrid[$i]) - 1; $j++) {
+                $cell = $newGrid[$i][$j];
 
                 if ($cell == Board::EMPTY_CELL) {
+                    $newGrid[$i] = $this->shift($newGrid[$i], $j);
                     continue;
                 }
 
-                $adjacentCell = $row[$j+1];
+                $adjacentCell = $newGrid[$i][$j+1];
 
                 if ($cell == $adjacentCell) {
                     $newGrid[$i][$j] += $adjacentCell;
-                    $newGrid[$i][$j+1] = Board::EMPTY_CELL;
+                    $newGrid[$i] = $this->shift($newGrid[$i], $j+1);
                 }
             }
         }
         
-        return new Board($newGrid);
+        return new Board($this->unflip($newGrid, $move));
+    }
+
+    private function flip($grid, $move)
+    {
+        $move;  // PHPMD
+        return $grid;
+    }
+
+    private function unflip($grid, $move)
+    {
+        $move;  // PHPMD
+        return $grid;
+    }
+
+    private function shift($grid, $shiftPoint)
+    {
+        $firstSegment = array_slice($grid, 0, $shiftPoint);
+        $secondSegment = array_slice($grid, $shiftPoint + 1);
+        return array_merge($firstSegment, $secondSegment, [Board::EMPTY_CELL]);
     }
 }

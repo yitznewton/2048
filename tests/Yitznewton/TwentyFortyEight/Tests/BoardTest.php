@@ -37,16 +37,47 @@ class BoardTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedBoard, $initialBoard->addMove(Move::LEFT));
     }
 
-    public function testAddMoveTwoSameValues()
+    public function testAddMoveTwoDifferentUp()
+    {
+        $this->markTestIncomplete();
+        $initialBoard = new Board([
+            [2,2],
+            [4,-1],
+        ]);
+
+        $expectedBoard = new Board([
+            [2,2],
+            [4,-1],
+        ]);
+
+        $this->assertEquals($expectedBoard, $initialBoard->addMove(Move::UP));
+    }
+
+    public function testAddShiftIntoEmpty()
+    {
+        $initialBoard = new Board([
+            [-1,2],
+            [2,4],
+        ]);
+
+        $expectedBoard = new Board([
+            [2,-1],
+            [2,4],
+        ]);
+
+        $this->assertEquals($expectedBoard, $initialBoard->addMove(Move::LEFT));
+    }
+
+    public function testAddMergeTwoByTwo()
     {
         $initialBoard = new Board([
             [2,2],
-            [-1,-1],
+            [4,-1],
         ]);
 
         $expectedBoard = new Board([
             [4,-1],
-            [-1,-1],
+            [4,-1],
         ]);
 
         $this->assertEquals($expectedBoard, $initialBoard->addMove(Move::LEFT));
