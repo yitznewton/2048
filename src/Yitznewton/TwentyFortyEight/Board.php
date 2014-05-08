@@ -50,33 +50,47 @@ class Board
     public function addMove($move)
     {
         $rotater = new GridRotater($move);
-        $newGrid = $rotater->rotateForMove($this->grid, $move);
 
-        for ($i = 0; $i < count($newGrid); $i++) {
-            for ($j = 0; $j < count($newGrid[$i]) - 1; $j++) {
-                $cell = $newGrid[$i][$j];
+        $rotatedGrid = $rotater->rotateForMove($this->grid, $move);
 
-                if ($cell == Board::EMPTY_CELL) {
-                    $newGrid[$i] = $this->shift($newGrid[$i], $j);
-                    continue;
-                }
+        $calculatedGrid = array_map(function ($row) {
+            $collapsedRow = $this->collapseRow($row);
+            return $this->padRowWithEmptyCells($collapsedRow, count($this->grid));
+        }, $rotatedGrid);
 
-                $adjacentCell = $newGrid[$i][$j+1];
+        $unrotatedGrid = $rotater->unrotateForMove($calculatedGrid, $move);
 
-                if ($cell == $adjacentCell) {
-                    $newGrid[$i][$j] += $adjacentCell;
-                    $newGrid[$i] = $this->shift($newGrid[$i], $j+1);
-                }
-            }
-        }
-
-        return new Board($rotater->unrotateForMove($newGrid, $move));
+        return new Board($unrotatedGrid);
     }
 
-    private function shift($grid, $shiftPoint)
+    private function collapseRow($row)
     {
-        $firstSegment = array_slice($grid, 0, $shiftPoint);
-        $secondSegment = array_slice($grid, $shiftPoint + 1);
-        return array_merge($firstSegment, $secondSegment, [Board::EMPTY_CELL]);
+        if ($row === []) {
+            return [];
+        }
+
+        if ($row[0] == Board::EMPTY_CELL) {
+            return $this->collapseRow(array_slice($row, 1));
+        }
+
+        if (count($row) === 1) {
+            return $row;
+        }
+
+        if ($row[0] == $row[1]) {
+            $sum = $row[0] + $row[1];
+            return array_merge([$sum], array_slice($row, 2));
+        }
+
+        return array_merge([$row[0]], $this->collapseRow(array_slice($row, 1)));
+    }
+
+    private function padRowWithEmptyCells($row, $size)
+    {
+        while (count($row) < $size) {
+            array_push($row, Board::EMPTY_CELL);
+        }
+
+        return $row;
     }
 }
