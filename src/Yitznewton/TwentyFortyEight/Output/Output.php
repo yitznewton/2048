@@ -16,4 +16,10 @@ interface Output
      * @return void
      */
     public function renderGameOver($score);
+
+    /**
+     * @param int $winningTileValue
+     * @return void
+     */
+    public function renderWin($winningTileValue);
 }

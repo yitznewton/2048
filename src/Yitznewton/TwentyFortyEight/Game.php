@@ -9,17 +9,20 @@ use Yitznewton\TwentyFortyEight\Output\Output;
 class Game
 {
     private $size;
+    private $winningTile;
     private $input;
     private $output;
 
     /**
      * @param int $size
+     * @param int $winningTile
      * @param Input $input
      * @param Output $output
      */
-    public function __construct($size, Input $input, Output $output)
+    public function __construct($size, $winningTile, Input $input, Output $output)
     {
         $this->size = $size;
+        $this->winningTile = $winningTile;
         $this->input = $input;
         $this->output = $output;
     }
@@ -55,19 +58,33 @@ class Game
             $grid = $moveCalculator->makeMove($move);
             $grid = $cellInjector->injectInto($grid);
             $this->output->renderBoard($grid, $score);
+
+            if ($this->hasWinningTile($grid)) {
+                $this->output->renderWin($this->winningTile);
+                break;
+            }
+
             $moveCalculator = new MoveCalculator($grid);
         }
 
         $this->output->renderGameOver($score);
     }
 
-    /**
-     * @param int $size
-     * @return array
-     */
     private function createEmptyGrid($size)
     {
         $row = array_fill(0, $size, EMPTY_CELL);
         return array_fill(0, $size, $row);
+    }
+
+    private function hasWinningTile($grid)
+    {
+        return in_array($this->winningTile, $this->flatten($grid));
+    }
+
+    private function flatten(array $grid)
+    {
+        return array_reduce($grid, function ($carry, $row) {
+            return array_merge($carry, $row);
+        }, []);
     }
 }

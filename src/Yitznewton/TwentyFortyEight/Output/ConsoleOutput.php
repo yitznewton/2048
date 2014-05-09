@@ -38,6 +38,14 @@ class ConsoleOutput implements Output
     }
 
     /**
+     * @param int $winningTileValue
+     */
+    public function renderWin($winningTileValue)
+    {
+        printf("\n". 'YYYYEEEEEEAH! You got the %d tile!!!!', $winningTileValue);
+    }
+
+    /**
      * @param array $grid
      * @param int $score
      */
