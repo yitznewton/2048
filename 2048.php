@@ -25,5 +25,5 @@ $input = new MappedInput([
 
 $output = new ConsoleOutput();
 
-$game = new Game(4, 16, $input, $output);
+$game = new Game(4, 2048, $input, $output);
 $game->run();
