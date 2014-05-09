@@ -72,6 +72,10 @@ class Board
             return $row;
         }
 
+        if ($row[1] == Board::EMPTY_CELL) {
+            return $this->collapseRow(array_merge([$row[0]], array_slice($row, 2)));
+        }
+
         if ($row[0] == $row[1]) {
             $sum = $row[0] + $row[1];
             return array_merge([$sum], $this->collapseRow(array_slice($row, 2)));
