@@ -8,8 +8,8 @@ phpmd:
 	./vendor/bin/phpmd ./tests text codesize,controversial,design,naming,unusedcode
 
 phpcs:
-	./vendor/bin/phpcs --standard=psr2 ./src
-	./vendor/bin/phpcs --standard=psr2 ./tests --standard=phpcs-test-ruleset.xml --ignore=./tests/manual_io/console_output.php
+	./vendor/bin/phpcs --standard=psr2 ./src --standard=phpcs-ruleset.xml
+	./vendor/bin/phpcs --standard=psr2 ./tests --standard=phpcs-ruleset.xml --ignore=./tests/manual_io/console_output.php
 
 php-cs-fixer:
 	./vendor/bin/php-cs-fixer --dry-run --verbose fix ./src --fixers=unused_use

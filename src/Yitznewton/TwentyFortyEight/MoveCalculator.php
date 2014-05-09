@@ -51,38 +51,38 @@ class MoveCalculator
 
     private function collapseAndPadRow($row)
     {
-        $collapsedRow = $this->collapseRow($row);
+        $collapsedRow = $this->collapseRow(new ArrayObj($row));
         return $this->padRowWithEmptyCells($collapsedRow, count($row));
     }
 
-    private function collapseRow($row)
+    private function collapseRow(ArrayObj $row)
     {
-        if (count($row) < 2) {
+        if ($row->count() < 2) {
             return $row;
         }
 
-        if ($row[0] == EMPTY_CELL) {
-            return $this->collapseRow(array_slice($row, 1));
+        if ($row->index(0) == EMPTY_CELL) {
+            return $this->collapseRow($row->slice(1));
         }
 
-        if ($row[1] == EMPTY_CELL) {
-            return $this->collapseRow(array_merge([$row[0]], array_slice($row, 2)));
+        if ($row->index(1) == EMPTY_CELL) {
+            return $this->collapseRow($row->slice(0,1)->merge($row->slice(2)));
         }
 
-        if ($row[0] == $row[1]) {
-            $sum = $row[0] + $row[1];
-            return array_merge([$sum], $this->collapseRow(array_slice($row, 2)));
+        if ($row->index(0) == $row->index(1)) {
+            $sum = $row->index(0) * 2;
+            return (new ArrayObj([$sum]))->merge($this->collapseRow($row->slice(2)));
         }
 
-        return array_merge([$row[0]], $this->collapseRow(array_slice($row, 1)));
+        return $row->slice(0,1)->merge($this->collapseRow($row->slice(1)));
     }
 
-    private function padRowWithEmptyCells($row, $size)
+    private function padRowWithEmptyCells(ArrayObj $row, $size)
     {
-        while (count($row) < $size) {
-            array_push($row, EMPTY_CELL);
+        while ($row->count() < $size) {
+            $row = $row->append(EMPTY_CELL);
         }
 
-        return $row;
+        return $row->toArray();
     }
 }
