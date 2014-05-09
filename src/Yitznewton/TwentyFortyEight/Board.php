@@ -2,8 +2,6 @@
 
 namespace Yitznewton\TwentyFortyEight;
 
-use Yitznewton\TwentyFortyEight\CellInjector\CellInjector;
-
 class Board
 {
     const EMPTY_CELL = -1;
