@@ -64,7 +64,7 @@ class MoveCalculator
         }
 
         if ($row->index(0) == $row->index(1)) {
-            $sum = $row->index(0) * 2;
+            $sum = $row->slice(0,2)->sum();
             $newFirst = new ArrayObj([$sum]);
             return $newFirst->merge($this->collapseRow($row->slice(2)));
         }

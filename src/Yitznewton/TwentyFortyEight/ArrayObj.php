@@ -73,6 +73,11 @@ class ArrayObj
         }, $this->array))));
     }
 
+    public function sum()
+    {
+        return array_sum($this->array);
+    }
+
     /**
      * @return array
      */

@@ -27,7 +27,8 @@ class Scorer
         }
 
         if ($row->index(0) == $row->index(1)) {
-            $cumulative += $row->index(0) * 2;
+            $sum = $row->slice(0,2)->sum();
+            $cumulative += $sum;
             return $this->forRow($row->slice(2), $cumulative);
         }
 

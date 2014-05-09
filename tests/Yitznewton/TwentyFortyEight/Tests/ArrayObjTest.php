@@ -53,4 +53,10 @@ class ArrayObjTest extends \PHPUnit_Framework_TestCase
         $arrayObj = new ArrayObj([1,2,3,4,3,5,3,6,3,7]);
         $this->assertEquals(new ArrayObj([1,2,4,5,6,7]), $arrayObj->delete(3));
     }
+
+    public function testSum()
+    {
+        $arrayObj = new ArrayObj([1,2,3]);
+        $this->assertEquals(6, $arrayObj->sum());
+    }
 }
