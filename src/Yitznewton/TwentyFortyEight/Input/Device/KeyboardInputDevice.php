@@ -19,6 +19,6 @@ class KeyboardInputDevice implements CharacterInputDevice
 
     public function getChar()
     {
-        return fread(STDIN, 1);
+        return fread(STDIN, 4);
     }
 }
