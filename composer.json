@@ -14,7 +14,8 @@
             "Yitznewton\\TwentyFortyEight\\": "src/",
             "Yitznewton\\TwentyFortyEight\\Tests\\": "tests/",
             "Yitznewton\\TwentyFortyEight\\TestDoubles\\": "tests/"
-        }
+        },
+        "files": ["./constants.php"]
     },
     "require": {
     },

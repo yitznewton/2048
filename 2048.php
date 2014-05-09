@@ -8,8 +8,6 @@ use Yitznewton\TwentyFortyEight\Output\ConsoleOutput;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-define('EMPTY_CELL', -1);
-
 $device = new KeyboardInputDevice();
 
 $input = new MappedInput([
