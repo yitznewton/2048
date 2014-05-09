@@ -57,16 +57,10 @@ class MoveCalculator
 
     private function collapseRow(ArrayObj $row)
     {
+        $row = $row->delete(EMPTY_CELL);
+
         if ($row->count() < 2) {
             return $row;
-        }
-
-        if ($row->index(0) == EMPTY_CELL) {
-            return $this->collapseRow($row->slice(1));
-        }
-
-        if ($row->index(1) == EMPTY_CELL) {
-            return $this->collapseRow($row->slice(0,1)->merge($row->slice(2)));
         }
 
         if ($row->index(0) == $row->index(1)) {

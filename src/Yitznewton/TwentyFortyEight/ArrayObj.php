@@ -66,6 +66,13 @@ class ArrayObj
         return $this->array[$index];
     }
 
+    public function delete($toDelete)
+    {
+        return new ArrayObj(array_values(array_filter(array_map(function ($item) use ($toDelete) {
+            return $item == $toDelete ? null : $item;
+        }, $this->array))));
+    }
+
     /**
      * @return array
      */

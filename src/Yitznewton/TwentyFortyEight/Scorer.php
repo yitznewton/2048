@@ -12,28 +12,25 @@ class Scorer
     public function forMove(array $startingGrid, $move)
     {
         $rotatedGrid = (new GridRotater())->rotateForMove($startingGrid, $move);
-        return array_sum(array_map([$this, 'forRow'], $rotatedGrid));
+        return array_sum(array_map(function ($row) {
+            $rowObj = new ArrayObj($row);
+            return $this->forRow($rowObj);
+        }, $rotatedGrid));
     }
 
     private function forRow($row, $cumulative = 0)
     {
-        if (count($row) < 2) {
+        $row = $row->delete(EMPTY_CELL);
+
+        if ($row->count() < 2) {
             return $cumulative;
         }
 
-        if ($row[0] == EMPTY_CELL) {
-            return $this->forRow(array_slice($row, 1), $cumulative);
+        if ($row->index(0) == $row->index(1)) {
+            $cumulative += $row->index(0) * 2;
+            return $this->forRow($row->slice(2), $cumulative);
         }
 
-        if ($row[1] == EMPTY_CELL) {
-            return $this->forRow(array_merge([$row[0]], array_slice($row, 2)), $cumulative);
-        }
-
-        if ($row[0] == $row[1]) {
-            $cumulative += $row[0] + $row[1];
-            return $this->forRow(array_slice($row, 2), $cumulative);
-        }
-
-        return $this->forRow(array_slice($row, 1), $cumulative);
+        return $this->forRow($row->slice(1), $cumulative);
     }
 }
