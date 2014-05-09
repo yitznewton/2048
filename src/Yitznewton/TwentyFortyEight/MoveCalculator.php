@@ -69,16 +69,12 @@ class MoveCalculator
 
     private function collapseRow($row)
     {
-        if ($row === []) {
-            return [];
+        if (count($row) < 2) {
+            return $row;
         }
 
         if ($row[0] == EMPTY_CELL) {
             return $this->collapseRow(array_slice($row, 1));
-        }
-
-        if (count($row) === 1) {
-            return $row;
         }
 
         if ($row[1] == EMPTY_CELL) {
