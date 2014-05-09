@@ -19,17 +19,7 @@ class MoveCalculator
      */
     public function hasPossibleMoves()
     {
-        $rotater = new GridRotater();
-        $grid = $this->grid;
-
-        $possibilityByMove = array_map(function ($move) use ($rotater, $grid) {
-            $grid = $rotater->rotateForMove($grid, $move);
-
-            return array_reduce($grid, function ($carry, $row) {
-                return $carry || $row != $this->collapseAndPadRow($row);
-            }, false);
-        }, Move::getAll());
-
+        $possibilityByMove = array_map([$this, 'isPossibleMove'], Move::getAll());
         return (bool) array_filter($possibilityByMove);
     }
 
