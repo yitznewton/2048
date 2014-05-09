@@ -203,7 +203,7 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
 
     public function testMakeMoveWithEmptyAdjacentCells()
     {
-        $initialBoard = $this->getBoard([
+        $calculator = $this->getCalculator([
             [2,-1],
             [2,-1],
         ]);
@@ -213,12 +213,12 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
             [2,-1],
         ];
 
-        $this->assertEquals($expected, $initialBoard->makeMove(Move::LEFT));
+        $this->assertEquals($expected, $calculator->makeMove(Move::LEFT));
     }
 
     public function testMakeMoveEmptiesCollapseFully()
     {
-        $initialBoard = $this->getBoard([
+        $calculator = $this->getCalculator([
             [-1,-1,2],
             [-1,2,2],
             [2,4,8],
@@ -230,7 +230,7 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
             [2,4,8],
         ];
 
-        $this->assertEquals($expected, $initialBoard->makeMove(Move::LEFT));
+        $this->assertEquals($expected, $calculator->makeMove(Move::LEFT));
     }
 
     /**
@@ -241,13 +241,13 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testMakeMoveWithDifferingAdjacentCells(array $grid, array $expected, $move)
     {
-        $initialBoard = $this->getBoard($grid);
-        $this->assertEquals($expected, $initialBoard->makeMove($move));
+        $calculator = $this->getCalculator($grid);
+        $this->assertEquals($expected, $calculator->makeMove($move));
     }
 
-    public function testAddShiftIntoEmpty()
+    public function testMakeMoveShiftIntoEmpty()
     {
-        $initialBoard = $this->getBoard([
+        $calculator = $this->getCalculator([
             [-1,2],
             [2,4],
         ]);
@@ -257,7 +257,7 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
             [2,4],
         ];
 
-        $this->assertEquals($expected, $initialBoard->makeMove(Move::LEFT));
+        $this->assertEquals($expected, $calculator->makeMove(Move::LEFT));
     }
 
     /**
@@ -268,8 +268,8 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testMakeMoveWithCellsToMerge(array $grid, array $expected, $move)
     {
-        $initialBoard = $this->getBoard($grid);
-        $this->assertEquals($expected, $initialBoard->makeMove($move));
+        $calculator = $this->getCalculator($grid);
+        $this->assertEquals($expected, $calculator->makeMove($move));
     }
 
     /**
@@ -279,7 +279,7 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasPossibleMoves(array $grid, $expected)
     {
-        $this->assertSame($expected, $this->getBoard($grid)->hasPossibleMoves());
+        $this->assertSame($expected, $this->getCalculator($grid)->hasPossibleMoves());
     }
 
     /**
@@ -290,10 +290,10 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsPossibleMove(array $grid, $move, $expected)
     {
-        $this->assertSame($expected, $this->getBoard($grid)->isPossibleMove($move));
+        $this->assertSame($expected, $this->getCalculator($grid)->isPossibleMove($move));
     }
 
-    private function getBoard($grid)
+    private function getCalculator($grid)
     {
         return new MoveCalculator($grid);
     }
