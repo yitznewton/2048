@@ -8,7 +8,7 @@ class KeyboardInputDevice implements CharacterInputDevice
 
     public function __construct()
     {
-        $this->originalTerminalSettings = `stty -g`;
+        $this->originalTerminalSettings = trim(`stty -g`);
         system('stty -icanon -echo');
     }
 
