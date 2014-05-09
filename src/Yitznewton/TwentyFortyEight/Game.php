@@ -40,7 +40,7 @@ class Game
         $grid = $this->cellInjector->injectInto($grid);
         $grid = $this->cellInjector->injectInto($grid);
 
-        $this->output->renderBoard($grid, $score);
+        $this->output->renderBoard($grid, $this->score);
 
         $moveCalculator = new MoveCalculator($grid);
 
@@ -68,7 +68,7 @@ class Game
             $moveCalculator = new MoveCalculator($grid);
         }
 
-        $this->output->renderGameOver($score);
+        $this->output->renderGameOver($this->score);
     }
 
     private function createEmptyGrid($size)
