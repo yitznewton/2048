@@ -46,7 +46,7 @@ class CellInjector
 
     private function stack(array $flattened)
     {
-        $size = sqrt(count($flattened));
+        $size = $this->integerSqrt(count($flattened));
 
         $stacked = [];
 
@@ -55,5 +55,31 @@ class CellInjector
         }
 
         return $stacked;
+    }
+
+    /**
+     * @SuppressWarnings(PHPMD.ShortVariableName)
+     */
+    private function integerSqrt($n)
+    {
+        $op = $n;
+        $res = 0;
+
+        $one = 1 << 30;
+
+        while ($one > $op) {
+            $one >>= 2;
+        }
+
+        while ($one != 0) {
+            if ($op >= $res + $one) {
+                $op -= $res + $one;
+                $res += $one << 1;
+            }
+            $res >>= 1;
+            $one >>= 2;
+        }
+
+        return $res;
     }
 }
