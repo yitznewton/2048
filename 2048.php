@@ -1,6 +1,7 @@
 <?php
 
 use Yitznewton\TwentyFortyEight\Board;
+use Yitznewton\TwentyFortyEight\CellInjector;
 use Yitznewton\TwentyFortyEight\Input\Device\KeyboardInputDevice;
 use Yitznewton\TwentyFortyEight\Input\MappedInput;
 use Yitznewton\TwentyFortyEight\Input\UnrecognizedInputException;
@@ -24,15 +25,19 @@ $input = new MappedInput([
 ], $device);
 
 $output = new ConsoleOutput();
+$cellInjector = new CellInjector();
 
-$grid = [
-    [-1,2],
-    [2,-1],
-];
+$size = 4;
+$row = array_fill(0, $size, Board::EMPTY_CELL);
+$grid = array_fill(0, $size, $row);
+$grid = $cellInjector->injectInto($grid);
+$grid = $cellInjector->injectInto($grid);
+
 $board = new Board($grid);
-$scorer = new Scorer();
 $score = 0;
 $output->renderBoard($grid, $score);
+
+$scorer = new Scorer();
 
 while ($board->hasPossibleMoves()) {
     try {
@@ -44,6 +49,7 @@ while ($board->hasPossibleMoves()) {
 
     $score += $scorer->forMove($grid, $move);
     $grid = $board->addMove($move);
+    $grid = $cellInjector->injectInto($grid);
     $board = new Board($grid);
     $output->renderBoard($grid, $score);
 }

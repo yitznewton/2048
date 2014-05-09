@@ -37,7 +37,7 @@ class Board
 
     /**
      * @param mixed $move One of the values in the Move pseudo-enum
-     * @return Board
+     * @return array
      */
     public function addMove($move)
     {
@@ -49,10 +49,7 @@ class Board
             return $this->collapseAndPadRow($row);
         }, $rotatedGrid);
 
-        $unrotatedGrid = $rotater->unrotateForMove($calculatedGrid, $move);
-        // $augmentedGrid = $this->cellInjector->inject($unrotatedGrid);
-
-        return $unrotatedGrid;
+        return $rotater->unrotateForMove($calculatedGrid, $move);
     }
 
     private function collapseAndPadRow($row)
