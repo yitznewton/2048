@@ -12,6 +12,9 @@ class Game
     private $winningTile;
     private $input;
     private $output;
+    private $scorer;
+    private $cellInjector;
+    private $score;
 
     /**
      * @param int $size
@@ -25,20 +28,20 @@ class Game
         $this->winningTile = $winningTile;
         $this->input = $input;
         $this->output = $output;
+        $this->scorer = new Scorer();
+        $this->cellInjector = new CellInjector();
+        $this->score = 0;
     }
 
     public function run()
     {
         $grid = $this->createEmptyGrid($this->size);
 
-        $cellInjector = new CellInjector();
-        $grid = $cellInjector->injectInto($grid);
-        $grid = $cellInjector->injectInto($grid);
+        $grid = $this->cellInjector->injectInto($grid);
+        $grid = $this->cellInjector->injectInto($grid);
 
-        $score = 0;
         $this->output->renderBoard($grid, $score);
 
-        $scorer = new Scorer();
         $moveCalculator = new MoveCalculator($grid);
 
         while ($moveCalculator->hasPossibleMoves()) {
@@ -54,10 +57,8 @@ class Game
                 continue;
             }
 
-            $score += $scorer->forMove($grid, $move);
-            $grid = $moveCalculator->makeMove($move);
-            $grid = $cellInjector->injectInto($grid);
-            $this->output->renderBoard($grid, $score);
+            $grid = $this->takeTurn($grid, $move, $moveCalculator);
+            $this->output->renderBoard($grid, $this->score);
 
             if ($this->hasWinningTile($grid)) {
                 $this->output->renderWin($this->winningTile);
@@ -79,6 +80,15 @@ class Game
     private function hasWinningTile($grid)
     {
         return in_array($this->winningTile, $this->flatten($grid));
+    }
+
+    private function takeTurn($grid, $move, $moveCalculator)
+    {
+        $this->score += $this->scorer->forMove($grid, $move);
+        $grid = $moveCalculator->makeMove($move);
+        $grid = $this->cellInjector->injectInto($grid);
+
+        return $grid;
     }
 
     private function flatten(array $grid)
