@@ -25,6 +25,10 @@ class Scorer
             return $this->forRow(array_slice($row, 1), $cumulative);
         }
 
+        if ($row[1] == EMPTY_CELL) {
+            return $this->forRow(array_merge([$row[0]], array_slice($row, 2)), $cumulative);
+        }
+
         if ($row[0] == $row[1]) {
             $cumulative += $row[0] + $row[1];
             return $this->forRow(array_slice($row, 2), $cumulative);
