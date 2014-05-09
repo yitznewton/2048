@@ -74,7 +74,7 @@ class Board
 
         if ($row[0] == $row[1]) {
             $sum = $row[0] + $row[1];
-            return array_merge([$sum], array_slice($row, 2));
+            return array_merge([$sum], $this->collapseRow(array_slice($row, 2)));
         }
 
         return array_merge([$row[0]], $this->collapseRow(array_slice($row, 1)));
