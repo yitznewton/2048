@@ -20,6 +20,12 @@ class GridRotater
      */
     public function unrotateForMove(array $grid, $move)
     {
+        $rotations = $this->rotationsForMove($move);
+
+        if ($rotations === 0) {
+            return $grid;
+        }
+
         return $this->rotate($grid, 4 - $this->rotationsForMove($move));
     }
 

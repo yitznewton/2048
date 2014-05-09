@@ -72,8 +72,8 @@ class Game
 
     private function createEmptyGrid($size)
     {
-        $row = array_fill(0, $size, EMPTY_CELL);
-        return array_fill(0, $size, $row);
+        $emptyRow = array_fill(0, $size, EMPTY_CELL);
+        return array_fill(0, $size, $emptyRow);
     }
 
     private function hasWinningTile($grid)
