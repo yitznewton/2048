@@ -4,8 +4,6 @@ namespace Yitznewton\TwentyFortyEight;
 
 class MoveCalculator
 {
-    const EMPTY_CELL = -1;
-
     private $grid;
 
     /**
