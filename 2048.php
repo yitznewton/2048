@@ -19,6 +19,10 @@ $input = new MappedInput([
     'j' => Move::LEFT,
     'k' => Move::DOWN,
     'l' => Move::RIGHT,
+    "\033[A" => Move::UP,
+    "\033[D" => Move::LEFT,
+    "\033[B" => Move::DOWN,
+    "\033[C" => Move::RIGHT,
 ], $device);
 
 $output = new ConsoleOutput();
