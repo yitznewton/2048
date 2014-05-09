@@ -65,10 +65,12 @@ class MoveCalculator
 
         if ($row->index(0) == $row->index(1)) {
             $sum = $row->index(0) * 2;
-            return (new ArrayObj([$sum]))->merge($this->collapseRow($row->slice(2)));
+            $newFirst = new ArrayObj([$sum]);
+            return $newFirst->merge($this->collapseRow($row->slice(2)));
         }
 
-        return $row->slice(0,1)->merge($this->collapseRow($row->slice(1)));
+        $newFirst = $row->slice(0,1);
+        return $newFirst->merge($this->collapseRow($row->slice(1)));
     }
 
     private function padRowWithEmptyCells(ArrayObj $row, $size)
