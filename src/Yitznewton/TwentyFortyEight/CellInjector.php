@@ -22,7 +22,7 @@ class CellInjector
         $emptyIndexes = [];
 
         foreach ($flattened as $index => $value) {
-            if ($value == Board::EMPTY_CELL) {
+            if ($value == EMPTY_CELL) {
                 $emptyIndexes[] = $index;
             }
         }

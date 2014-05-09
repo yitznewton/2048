@@ -21,7 +21,7 @@ class Scorer
             return $cumulative;
         }
 
-        if ($row[0] == Board::EMPTY_CELL) {
+        if ($row[0] == EMPTY_CELL) {
             return $this->forRow(array_slice($row, 1), $cumulative);
         }
 

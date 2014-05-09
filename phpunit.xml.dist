@@ -9,6 +9,9 @@
          stopOnFailure="false"
          syntaxCheck="false"
         >
+    <php>
+        <const name="EMPTY_CELL" value="-1"/>
+    </php>
     <testsuites>
         <testsuite>
             <directory>./tests/</directory>

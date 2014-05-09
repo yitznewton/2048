@@ -55,7 +55,7 @@ class CellInjectorTest extends \PHPUnit_Framework_TestCase
         for ($i = 0; $i < count($grid); $i++) {
             $row = $grid[$i];
             for ($j = 0; $j < count($row); $j++) {
-                if ($row[$j] != Board::EMPTY_CELL) {
+                if ($row[$j] != MoveCalculator::EMPTY_CELL) {
                     $count++;
                 }
             }

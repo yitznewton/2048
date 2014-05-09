@@ -2,10 +2,13 @@
 
 namespace Yitznewton\TwentyFortyEight\Tests;
 
-use Yitznewton\TwentyFortyEight\Board;
 use Yitznewton\TwentyFortyEight\Move;
+use Yitznewton\TwentyFortyEight\MoveCalculator;
 
-class BoardTest extends \PHPUnit_Framework_TestCase
+/**
+ * @SuppressWarnings(PHPMD.TooManyMethods)
+ */
+class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
 {
     public function dataForDifferingAdjacentCells()
     {
@@ -171,7 +174,34 @@ class BoardTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testAddMoveWithEmptyAdjacentCells()
+    public function dataForIsPossibleMove()
+    {
+        return [
+            [
+                [],
+                Move::LEFT,
+                false,
+            ],
+            [
+                [
+                    [2,-1],
+                    [2,4],
+                ],
+                Move::LEFT,
+                false,
+            ],
+            [
+                [
+                    [-1,2],
+                    [2,4],
+                ],
+                Move::LEFT,
+                true,
+            ],
+        ];
+    }
+
+    public function testMakeMoveWithEmptyAdjacentCells()
     {
         $initialBoard = $this->getBoard([
             [2,-1],
@@ -183,10 +213,10 @@ class BoardTest extends \PHPUnit_Framework_TestCase
             [2,-1],
         ];
 
-        $this->assertEquals($expected, $initialBoard->addMove(Move::LEFT));
+        $this->assertEquals($expected, $initialBoard->makeMove(Move::LEFT));
     }
 
-    public function testAddMoveEmptiesCollapseFully()
+    public function testMakeMoveEmptiesCollapseFully()
     {
         $initialBoard = $this->getBoard([
             [-1,-1,2],
@@ -200,7 +230,7 @@ class BoardTest extends \PHPUnit_Framework_TestCase
             [2,4,8],
         ];
 
-        $this->assertEquals($expected, $initialBoard->addMove(Move::LEFT));
+        $this->assertEquals($expected, $initialBoard->makeMove(Move::LEFT));
     }
 
     /**
@@ -209,10 +239,10 @@ class BoardTest extends \PHPUnit_Framework_TestCase
      * @param array $expected
      * @param mixed $move
      */
-    public function testAddMoveWithDifferingAdjacentCells(array $grid, array $expected, $move)
+    public function testMakeMoveWithDifferingAdjacentCells(array $grid, array $expected, $move)
     {
         $initialBoard = $this->getBoard($grid);
-        $this->assertEquals($expected, $initialBoard->addMove($move));
+        $this->assertEquals($expected, $initialBoard->makeMove($move));
     }
 
     public function testAddShiftIntoEmpty()
@@ -227,7 +257,7 @@ class BoardTest extends \PHPUnit_Framework_TestCase
             [2,4],
         ];
 
-        $this->assertEquals($expected, $initialBoard->addMove(Move::LEFT));
+        $this->assertEquals($expected, $initialBoard->makeMove(Move::LEFT));
     }
 
     /**
@@ -236,10 +266,10 @@ class BoardTest extends \PHPUnit_Framework_TestCase
      * @param array $expected
      * @param mixed $move
      */
-    public function testAddMoveWithCellsToMerge(array $grid, array $expected, $move)
+    public function testMakeMoveWithCellsToMerge(array $grid, array $expected, $move)
     {
         $initialBoard = $this->getBoard($grid);
-        $this->assertEquals($expected, $initialBoard->addMove($move));
+        $this->assertEquals($expected, $initialBoard->makeMove($move));
     }
 
     /**
@@ -252,8 +282,19 @@ class BoardTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $this->getBoard($grid)->hasPossibleMoves());
     }
 
+    /**
+     * @dataProvider dataForIsPossibleMove
+     * @param array $grid
+     * @param mixed $move
+     * @param bool $expected
+     */
+    public function testIsPossibleMove(array $grid, $move, $expected)
+    {
+        $this->assertSame($expected, $this->getBoard($grid)->isPossibleMove($move));
+    }
+
     private function getBoard($grid)
     {
-        return new Board($grid);
+        return new MoveCalculator($grid);
     }
 }

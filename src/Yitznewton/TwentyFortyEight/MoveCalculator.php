@@ -2,7 +2,7 @@
 
 namespace Yitznewton\TwentyFortyEight;
 
-class Board
+class MoveCalculator
 {
     const EMPTY_CELL = -1;
 
@@ -36,10 +36,19 @@ class Board
     }
 
     /**
+     * @param mixed $move
+     * @return bool
+     */
+    public function isPossibleMove($move)
+    {
+        return $this->makeMove($move) != $this->grid;
+    }
+
+    /**
      * @param mixed $move One of the values in the Move pseudo-enum
      * @return array
      */
-    public function addMove($move)
+    public function makeMove($move)
     {
         $rotater = new GridRotater($move);
 
@@ -64,7 +73,7 @@ class Board
             return [];
         }
 
-        if ($row[0] == Board::EMPTY_CELL) {
+        if ($row[0] == EMPTY_CELL) {
             return $this->collapseRow(array_slice($row, 1));
         }
 
@@ -72,7 +81,7 @@ class Board
             return $row;
         }
 
-        if ($row[1] == Board::EMPTY_CELL) {
+        if ($row[1] == EMPTY_CELL) {
             return $this->collapseRow(array_merge([$row[0]], array_slice($row, 2)));
         }
 
@@ -87,7 +96,7 @@ class Board
     private function padRowWithEmptyCells($row, $size)
     {
         while (count($row) < $size) {
-            array_push($row, Board::EMPTY_CELL);
+            array_push($row, EMPTY_CELL);
         }
 
         return $row;

@@ -26,19 +26,19 @@ class Game
 
     public function run()
     {
+        $grid = $this->createEmptyGrid($this->size);
+
         $cellInjector = new CellInjector();
-        $row = array_fill(0, $this->size, Board::EMPTY_CELL);
-        $grid = array_fill(0, $this->size, $row);
         $grid = $cellInjector->injectInto($grid);
         $grid = $cellInjector->injectInto($grid);
 
-        $board = new Board($grid);
         $score = 0;
         $this->output->renderBoard($grid, $score);
 
         $scorer = new Scorer();
+        $moveCalculator = new MoveCalculator($grid);
 
-        while ($board->hasPossibleMoves()) {
+        while ($moveCalculator->hasPossibleMoves()) {
             try {
                 $move = $this->input->getMove();
             } catch (UnrecognizedInputException $e) {
@@ -46,13 +46,28 @@ class Game
                 continue;
             }
 
+            if (!$moveCalculator->isPossibleMove($move)) {
+                // ignore
+                continue;
+            }
+
             $score += $scorer->forMove($grid, $move);
-            $grid = $board->addMove($move);
+            $grid = $moveCalculator->makeMove($move);
             $grid = $cellInjector->injectInto($grid);
-            $board = new Board($grid);
             $this->output->renderBoard($grid, $score);
+            $moveCalculator = new MoveCalculator($grid);
         }
 
         $this->output->renderGameOver($score);
+    }
+
+    /**
+     * @param int $size
+     * @return array
+     */
+    private function createEmptyGrid($size)
+    {
+        $row = array_fill(0, $size, EMPTY_CELL);
+        return array_fill(0, $size, $row);
     }
 }

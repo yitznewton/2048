@@ -2,8 +2,6 @@
 
 namespace Yitznewton\TwentyFortyEight\Output;
 
-use Yitznewton\TwentyFortyEight\Board;
-
 /**
  * @SuppressWarnings(PHPMD.TooManyMethods)
  */
@@ -96,7 +94,7 @@ class ConsoleOutput implements Output
 
     private function cellToString($cell)
     {
-        if ($cell == Board::EMPTY_CELL) {
+        if ($cell == EMPTY_CELL) {
             return '';
         }
 
