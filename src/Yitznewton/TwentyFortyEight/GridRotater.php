@@ -20,13 +20,7 @@ class GridRotater
      */
     public function unrotateForMove(array $grid, $move)
     {
-        $rotations = $this->rotationsForMove($move);
-
-        if ($rotations === 0) {
-            return $grid;
-        }
-
-        return $this->rotate($grid, 4 - $this->rotationsForMove($move));
+        return $this->rotate($grid, $this->unrotationsForMove($move));
     }
 
     /**
@@ -65,5 +59,12 @@ class GridRotater
             default:
                 throw new \UnexpectedValueException('Unrecognized move');
         }
+    }
+
+    private function unrotationsForMove($move)
+    {
+        $totalMoves = count(Move::getAll());
+        // add on an extra $totalMoves to avoid division by zero
+        return $totalMoves * 2 % ($this->rotationsForMove($move) + $totalMoves);
     }
 }
