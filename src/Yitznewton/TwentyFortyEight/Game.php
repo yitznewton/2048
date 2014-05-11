@@ -36,11 +36,10 @@ class Game
     public function run()
     {
         //$grid = $this->createEmptyGrid($this->size);
-        $grid = Grid::createEmpty($this->size);
-
-
-        $grid = $this->cellInjector->injectInto($grid);
-        $grid = $this->cellInjector->injectInto($grid);
+        $grid = Grid::createFilled($this->size, EMPTY_CELL);
+        $grid = $this->injectRandom($grid, 2);
+        var_dump($grid->toArray());
+        exit;
 
         $this->output->renderBoard($grid, $this->score);
 
@@ -71,6 +70,16 @@ class Game
         }
 
         $this->output->renderGameOver($this->score);
+    }
+
+    private function injectRandom($grid, $numberOfCells)
+    {
+        $randomChoices = [2,4];
+
+        return array_reduce(range(0, $numberOfCells - 1), function ($carry) use ($randomChoices) {
+            $randomNumber = $randomChoices[rand(0, 1)];
+            return $carry->replaceRandom(EMPTY_CELL, $randomNumber);
+        }, $grid);
     }
 
     private function hasWinningTile($grid)
