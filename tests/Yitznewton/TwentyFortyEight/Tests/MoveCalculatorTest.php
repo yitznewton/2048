@@ -127,6 +127,14 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
             [
                 [
                     [2,4,8],
+                    [16,32,256],
+                    [64,128,-1],
+                ],
+                true,
+            ],
+            [
+                [
+                    [2,4,8],
                     [-1,16,32],
                     [64,128,256],
                 ],
@@ -206,6 +214,14 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
                 ],
                 Move::LEFT,
                 true,
+            ],
+            [
+                [
+                    [-1,2],
+                    [2,4],
+                ],
+                Move::RIGHT,
+                false,
             ],
         ];
     }
