@@ -79,7 +79,9 @@ class Game
 
     private function hasWinningTile($grid)
     {
-        return in_array($this->winningTile, $this->flatten($grid));
+        return array_reduce($this->flatten($grid), function ($carry, $cell) {
+            return $carry || $cell >= $this->winningTile;
+        }, false);
     }
 
     private function takeTurn($grid, $move, $moveCalculator)
