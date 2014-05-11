@@ -23,7 +23,7 @@ class MoveCalculator
             return true;
         }
 
-        $possibilityByMove = array_map([$this, 'isPossibleMove'], Move::getAll());
+        $possibilityByMove = array_map([$this, 'isPossibleMove'], [Move::LEFT, Move::UP]);
         return (bool) array_filter($possibilityByMove);
     }
 
