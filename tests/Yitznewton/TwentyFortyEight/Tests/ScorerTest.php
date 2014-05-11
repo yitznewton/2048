@@ -2,6 +2,7 @@
 
 namespace Yitznewton\TwentyFortyEight\Tests;
 
+use Yitznewton\TwentyFortyEight\Grid;
 use Yitznewton\TwentyFortyEight\Move;
 use Yitznewton\TwentyFortyEight\Scorer;
 
@@ -79,7 +80,7 @@ class ScorerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetScore($startingGrid, $move, $expected)
     {
-        $move;  // PHPMD
+        $startingGrid = Grid::fromArray($startingGrid);
         $this->assertSame($expected, (new Scorer())->forMove($startingGrid, $move));
     }
 }

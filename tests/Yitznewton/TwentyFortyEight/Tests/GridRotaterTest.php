@@ -2,6 +2,7 @@
 
 namespace Yitznewton\TwentyFortyEight\Tests;
 
+use Yitznewton\TwentyFortyEight\Grid;
 use Yitznewton\TwentyFortyEight\GridRotater;
 use Yitznewton\TwentyFortyEight\Move;
 
@@ -105,6 +106,8 @@ class GridRotaterTest extends \PHPUnit_Framework_TestCase
      */
     public function testRotate($grid, $numberOfRotations, $expected)
     {
+        $grid = Grid::fromArray($grid);
+        $expected = Grid::fromArray($expected);
         $this->assertEquals($expected, (new GridRotater())->rotate($grid, $numberOfRotations));
     }
 
@@ -116,6 +119,8 @@ class GridRotaterTest extends \PHPUnit_Framework_TestCase
      */
     public function testRotateForMove($grid, $move, $expected)
     {
+        $grid = Grid::fromArray($grid);
+        $expected = Grid::fromArray($expected);
         $this->assertEquals($expected, (new GridRotater())->rotateForMove($grid, $move));
     }
 
@@ -126,6 +131,7 @@ class GridRotaterTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnrotateForMove($grid, $move)
     {
+        $grid = Grid::fromArray($grid);
         $rotater = new GridRotater();
         $rotated = $rotater->rotateForMove($grid, $move);
         $this->assertEquals($grid, $rotater->unrotateForMove($rotated, $move));
@@ -134,6 +140,7 @@ class GridRotaterTest extends \PHPUnit_Framework_TestCase
     public function testRotateForMoveWithInvalidMove()
     {
         $this->setExpectedException(\UnexpectedValueException::class);
-        (new GridRotater())->rotateForMove([], 'wut');
+        $grid = Grid::fromArray([[1,2],[3,4]]);
+        (new GridRotater())->rotateForMove($grid, 'wut');
     }
 }

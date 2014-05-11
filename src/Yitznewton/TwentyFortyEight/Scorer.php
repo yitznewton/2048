@@ -5,17 +5,17 @@ namespace Yitznewton\TwentyFortyEight;
 class Scorer
 {
     /**
-     * @param array $startingGrid
+     * @param Grid $startingGrid
      * @param mixed $move
      * @return int
      */
-    public function forMove(array $startingGrid, $move)
+    public function forMove(Grid $startingGrid, $move)
     {
         $rotatedGrid = (new GridRotater())->rotateForMove($startingGrid, $move);
-        return array_sum(array_map(function ($row) {
-            $rowObj = new Collection($row);
-            return $this->forRow($rowObj);
-        }, $rotatedGrid));
+
+        return array_sum($rotatedGrid->map(function ($row) {
+            return $this->forRow($row);
+        }));
     }
 
     private function forRow($row, $cumulative = 0)

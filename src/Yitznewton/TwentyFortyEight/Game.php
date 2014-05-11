@@ -89,14 +89,8 @@ class Game
 
     private function takeTurn($grid, $move, $moveCalculator)
     {
-        // FIXME
-        $grid = $grid->toArray();
         $this->score += $this->scorer->forMove($grid, $move);
-        // FIXME
-        $grid = Grid::fromArray($grid);
-
         $grid = $moveCalculator->makeMove($move);
-
         $grid = $this->injectRandom($grid, 1);
 
         return $grid;

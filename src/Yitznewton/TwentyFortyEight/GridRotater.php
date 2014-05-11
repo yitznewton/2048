@@ -5,44 +5,49 @@ namespace Yitznewton\TwentyFortyEight;
 class GridRotater
 {
     /**
-     * @param array $grid
+     * @param Grid $grid
      * @param mixed $move
      * @return array
      */
-    public function rotateForMove(array $grid, $move)
+    public function rotateForMove(Grid $grid, $move)
     {
         return $this->rotate($grid, $this->rotationsForMove($move));
     }
 
     /**
-     * @param array $grid
+     * @param Grid $grid
+     * @param $move
      * @return array
      */
-    public function unrotateForMove(array $grid, $move)
+    public function unrotateForMove(Grid $grid, $move)
     {
         return $this->rotate($grid, $this->unrotationsForMove($move));
     }
 
     /**
-     * @param array $grid
+     * @param Grid $grid
      * @param int $numberOfRotations
      * @return array
      */
-    public function rotate(array $grid, $numberOfRotations)
+    public function rotate(Grid $grid, $numberOfRotations)
     {
         if ($numberOfRotations == 0) {
             return $grid;
         }
 
-        $rotated = [];
+        $grid = $grid->toArray();
+
+        $flipped = [];
 
         for ($i = 0; $i < count($grid); $i++) {
             for ($j = 0; $j < count($grid); $j++) {
-                $rotated[$i][$j] = $grid[$j][$i];
+                $flipped[$i][$j] = $grid[$j][$i];
             }
         }
 
-        return $this->rotate(array_map('array_reverse', $rotated), $numberOfRotations-1);
+        $rotated = array_map('array_reverse', $flipped);
+
+        return $this->rotate(Grid::fromArray($rotated), $numberOfRotations-1);
     }
 
     private function rotationsForMove($move)

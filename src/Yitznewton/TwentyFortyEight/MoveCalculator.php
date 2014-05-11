@@ -44,19 +44,19 @@ class MoveCalculator
     {
         $rotater = new GridRotater($move);
 
-        $rotatedGrid = $rotater->rotateForMove($this->grid->toArray(), $move);
+        $rotatedGrid = $rotater->rotateForMove($this->grid, $move);
 
-        $calculatedGrid = array_map(function ($row) {
+        $calculatedGrid = Grid::fromArray($rotatedGrid->map(function ($row) {
             return $this->collapseAndPadRow($row);
-        }, $rotatedGrid);
+        }));
 
-        return Grid::fromArray($rotater->unrotateForMove($calculatedGrid, $move));
+        return $rotater->unrotateForMove($calculatedGrid, $move);
     }
 
     private function collapseAndPadRow($row)
     {
-        $collapsedRow = $this->collapseRow(new Collection($row));
-        return $this->padRowWithEmptyCells($collapsedRow, count($row));
+        $collapsedRow = $this->collapseRow($row);
+        return $this->padRowWithEmptyCells($collapsedRow, $row->count());
     }
 
     private function collapseRow(Collection $row)

@@ -26,6 +26,11 @@ class Grid
         return count($this->rows);
     }
 
+    public function map($callback)
+    {
+        return array_map($callback, $this->rows);
+    }
+
     public function reduce($callback, $startingValue = null)
     {
         return array_reduce($this->flatten(), $callback, $startingValue);
