@@ -84,18 +84,6 @@ class Grid
     }
 
     /**
-     * @param int $size
-     * @param mixed $fillValue
-     * @return Grid
-     */
-    public static function createFilled($size, $fillValue)
-    {
-        return self::fromArray(array_map(function () use ($size, $fillValue) {
-            return array_fill(0, $size, $fillValue);
-        }, range(0, $size-1)));
-    }
-
-    /**
      * @param array $array
      * @return self
      */

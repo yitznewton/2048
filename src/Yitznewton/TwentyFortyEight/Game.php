@@ -33,7 +33,7 @@ class Game
 
     public function run()
     {
-        $grid = Grid::createFilled($this->size, EMPTY_CELL);
+        $grid = $this->createGrid($this->size);
         $grid = $this->injectRandom($grid, 2);
 
         $this->output->renderBoard($grid, $this->score);
@@ -79,6 +79,18 @@ class Game
 
         return $grid;
     }
+
+    /**
+     * @param int $size
+     * @return Grid
+     */
+    private function createGrid($size)
+    {
+        return Grid::fromArray(array_map(function () use ($size) {
+            return array_fill(0, $size, EMPTY_CELL);
+        }, range(0, $size-1)));
+    }
+
 
     private function hasWinningTile($grid)
     {
