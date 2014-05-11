@@ -2,14 +2,16 @@
 
 namespace Yitznewton\TwentyFortyEight\Output;
 
+use Yitznewton\TwentyFortyEight\Grid;
+
 interface Output
 {
     /**
-     * @param array $grid
+     * @param Grid $grid
      * @param int $score
      * @return void
      */
-    public function renderBoard(array $grid, $score);
+    public function renderBoard(Grid $grid, $score);
 
     /**
      * @param int $score

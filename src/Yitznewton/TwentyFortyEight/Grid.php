@@ -21,6 +21,11 @@ class Grid
         }, $this->rows);
     }
 
+    public function count()
+    {
+        return count($this->rows);
+    }
+
     public function reduce($callback, $startingValue = null)
     {
         return array_reduce($this->flatten(), $callback, $startingValue);

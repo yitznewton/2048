@@ -36,10 +36,10 @@ class Game
         $grid = Grid::createFilled($this->size, EMPTY_CELL);
         $grid = $this->injectRandom($grid, 2);
 
+        $this->output->renderBoard($grid, $this->score);
+
         // FIXME
         $grid = $grid->toArray();
-
-        $this->output->renderBoard($grid, $this->score);
 
         $moveCalculator = new MoveCalculator($grid);
 
@@ -57,10 +57,11 @@ class Game
             }
 
             $grid = $this->takeTurn($grid, $move, $moveCalculator);
-            $this->output->renderBoard($grid, $this->score);
 
             // FIXME
             $grid = Grid::fromArray($grid);
+
+            $this->output->renderBoard($grid, $this->score);
 
             if ($this->hasWinningTile($grid)) {
                 $this->output->renderWin($this->winningTile);

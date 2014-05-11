@@ -1,6 +1,7 @@
 <?php
 
 namespace Yitznewton\TwentyFortyEight\Output;
+use Yitznewton\TwentyFortyEight\Grid;
 
 /**
  * @SuppressWarnings(PHPMD.TooManyMethods)
@@ -18,11 +19,11 @@ class ConsoleOutput implements Output
     }
 
     /**
-     * @param array $grid
+     * @param Grid $grid
      * @param int $score
      * @return void
      */
-    public function renderBoard(array $grid, $score)
+    public function renderBoard(Grid $grid, $score)
     {
         $this->clearScreen();
         $this->printHeader($grid, $score);
@@ -45,11 +46,7 @@ class ConsoleOutput implements Output
         printf("\n". 'YYYYEEEEEEAH! You got the %d tile!!!!', $winningTileValue);
     }
 
-    /**
-     * @param array $grid
-     * @param int $score
-     */
-    private function printHeader(array $grid, $score)
+    private function printHeader($grid, $score)
     {
         $boardWidth = $this->calculateBoardWidth($grid);
         $scoreString = 'SCORE: ' . $score;
@@ -60,17 +57,19 @@ class ConsoleOutput implements Output
         echo $scoreString . $spaces . self::GAME_TITLE . "\n\n";
     }
 
-    private function printGrid(array $grid)
+    private function printGrid($grid)
     {
         $boardWidth = $this->calculateBoardWidth($grid);
 
         $this->printSolidLine($boardWidth);
 
-        for ($i = 0; $i < count($grid); $i++) {
-            $row = $grid[$i];
+        $gridArray = $grid->toArray();
+
+        for ($i = 0; $i < count($gridArray); $i++) {
+            $row = $gridArray[$i];
             $this->printRow($row);
 
-            if (!$this->isLastRow($i, $grid)) {
+            if (!$this->isLastRow($i, $gridArray)) {
                 $this->printBlankLine($boardWidth);
             }
         }
@@ -117,10 +116,10 @@ class ConsoleOutput implements Output
         return $i == count($grid) - 1;
     }
 
-    private function calculateBoardWidth(array $grid)
+    private function calculateBoardWidth($grid)
     {
         $combinedBorderWidth = 2;
-        return count($grid) * self::CELL_WIDTH + $combinedBorderWidth;
+        return $grid->count() * self::CELL_WIDTH + $combinedBorderWidth;
     }
 
     private function clearScreen()

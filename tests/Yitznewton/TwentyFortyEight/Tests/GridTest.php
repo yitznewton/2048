@@ -25,6 +25,12 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($grid->contains(3));
     }
 
+    public function testCount()
+    {
+        $grid = Grid::createFilled(2, 3);
+        $this->assertEquals(2, $grid->count());
+    }
+
     public function testReplaceRandomWhereTargetExists()
     {
         $grid = Grid::createFilled(2, 3);
