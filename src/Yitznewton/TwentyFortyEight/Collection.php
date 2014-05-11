@@ -68,9 +68,7 @@ class Collection
 
     public function delete($toDelete)
     {
-        return new Collection(array_values(array_filter(array_map(function ($item) use ($toDelete) {
-            return $item == $toDelete ? null : $item;
-        }, $this->array))));
+        return new Collection(array_values(array_diff($this->array, [$toDelete])));
     }
 
     /**
