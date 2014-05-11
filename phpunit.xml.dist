@@ -11,14 +11,15 @@
         >
     <testsuites>
         <testsuite>
-            <directory>./tests/</directory>
+            <directory>./src/Yitznewton/TwentyFortyEight/Tests</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <blacklist>
+            <directory>./src/Yitznewton/TwentyFortyEight/Tests</directory>
+            <directory>./src/Yitznewton/TwentyFortyEight/TestDoubles</directory>
             <directory>./vendor</directory>
-            <directory>./tests</directory>
         </blacklist>
     </filter>
 </phpunit>
