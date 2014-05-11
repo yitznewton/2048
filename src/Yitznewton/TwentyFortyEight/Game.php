@@ -38,10 +38,9 @@ class Game
         //$grid = $this->createEmptyGrid($this->size);
         $grid = Grid::createFilled($this->size, EMPTY_CELL);
         $grid = $this->injectRandom($grid, 2);
-        var_dump($grid->toArray());
-        exit;
 
-        $this->output->renderBoard($grid, $this->score);
+        $this->output->renderBoard($grid->toArray(), $this->score);
+        exit;
 
         $moveCalculator = new MoveCalculator($grid);
 

@@ -44,8 +44,10 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateAndAccess()
     {
-        $row = new Collection(['test', 'test']);
-        $expected = [$row, $row];
+        $expected = [
+            ['test', 'test'],
+            ['test', 'test'],
+        ];
         $this->assertEquals($expected, Grid::createFilled(2, 'test')->toArray());
     }
 }

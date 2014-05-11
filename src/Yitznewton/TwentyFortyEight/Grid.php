@@ -16,7 +16,9 @@ class Grid
 
     public function toArray()
     {
-        return $this->rows;
+        return array_map(function ($row) {
+            return $row->toArray();
+        }, $this->rows);
     }
 
     public function reduce($callback, $startingValue = null)
