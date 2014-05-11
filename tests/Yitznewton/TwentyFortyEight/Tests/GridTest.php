@@ -2,7 +2,6 @@
 
 namespace Yitznewton\TwentyFortyEight\Tests;
 
-use Yitznewton\TwentyFortyEight\Collection;
 use Yitznewton\TwentyFortyEight\Grid;
 
 class GridTest extends \PHPUnit_Framework_TestCase

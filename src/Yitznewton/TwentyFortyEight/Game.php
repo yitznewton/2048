@@ -13,7 +13,6 @@ class Game
     private $input;
     private $output;
     private $scorer;
-    private $cellInjector;
     private $score;
 
     /**
@@ -29,7 +28,6 @@ class Game
         $this->input = $input;
         $this->output = $output;
         $this->scorer = new Scorer();
-        $this->cellInjector = new CellInjector();
         $this->score = 0;
     }
 
@@ -40,7 +38,6 @@ class Game
         $grid = $this->injectRandom($grid, 2);
 
         $this->output->renderBoard($grid->toArray(), $this->score);
-        exit;
 
         $moveCalculator = new MoveCalculator($grid);
 
@@ -92,15 +89,8 @@ class Game
     {
         $this->score += $this->scorer->forMove($grid, $move);
         $grid = $moveCalculator->makeMove($move);
-        $grid = $this->cellInjector->injectInto($grid);
+        $grid = $this->injectRandom($grid, 1);
 
         return $grid;
-    }
-
-    private function flatten(array $grid)
-    {
-        return array_reduce($grid, function ($carry, $row) {
-            return array_merge($carry, $row);
-        }, []);
     }
 }
