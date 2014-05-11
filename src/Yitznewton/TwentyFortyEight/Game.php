@@ -35,7 +35,9 @@ class Game
 
     public function run()
     {
-        $grid = $this->createEmptyGrid($this->size);
+        //$grid = $this->createEmptyGrid($this->size);
+        $grid = Grid::createEmpty($this->size);
+
 
         $grid = $this->cellInjector->injectInto($grid);
         $grid = $this->cellInjector->injectInto($grid);
@@ -71,15 +73,9 @@ class Game
         $this->output->renderGameOver($this->score);
     }
 
-    private function createEmptyGrid($size)
-    {
-        $emptyRow = array_fill(0, $size, EMPTY_CELL);
-        return array_fill(0, $size, $emptyRow);
-    }
-
     private function hasWinningTile($grid)
     {
-        return array_reduce($this->flatten($grid), function ($carry, $cell) {
+        return $grid->reduce(function ($carry, $cell) {
             return $carry || $cell >= $this->winningTile;
         }, false);
     }

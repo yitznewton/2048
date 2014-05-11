@@ -13,7 +13,7 @@ class Scorer
     {
         $rotatedGrid = (new GridRotater())->rotateForMove($startingGrid, $move);
         return array_sum(array_map(function ($row) {
-            $rowObj = new ArrayObj($row);
+            $rowObj = new Collection($row);
             return $this->forRow($rowObj);
         }, $rotatedGrid));
     }

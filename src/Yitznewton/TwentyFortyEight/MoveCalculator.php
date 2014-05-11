@@ -51,11 +51,11 @@ class MoveCalculator
 
     private function collapseAndPadRow($row)
     {
-        $collapsedRow = $this->collapseRow(new ArrayObj($row));
+        $collapsedRow = $this->collapseRow(new Collection($row));
         return $this->padRowWithEmptyCells($collapsedRow, count($row));
     }
 
-    private function collapseRow(ArrayObj $row)
+    private function collapseRow(Collection $row)
     {
         $row = $row->delete(EMPTY_CELL);
 
@@ -65,7 +65,7 @@ class MoveCalculator
 
         if ($row->index(0) == $row->index(1)) {
             $sum = $row->index(0) * 2;
-            $newFirst = new ArrayObj([$sum]);
+            $newFirst = new Collection([$sum]);
             return $newFirst->merge($this->collapseRow($row->slice(2)));
         }
 
@@ -73,7 +73,7 @@ class MoveCalculator
         return $newFirst->merge($this->collapseRow($row->slice(1)));
     }
 
-    private function padRowWithEmptyCells(ArrayObj $row, $size)
+    private function padRowWithEmptyCells(Collection $row, $size)
     {
         while ($row->count() < $size) {
             $row = $row->append(EMPTY_CELL);

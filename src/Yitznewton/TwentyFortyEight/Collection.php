@@ -2,7 +2,7 @@
 
 namespace Yitznewton\TwentyFortyEight;
 
-class ArrayObj
+class Collection
 {
     private $array;
 
@@ -44,10 +44,10 @@ class ArrayObj
     }
 
     /**
-     * @param ArrayObj $arrayToMerge
+     * @param Collection $arrayToMerge
      * @return self
      */
-    public function merge(ArrayObj $arrayToMerge)
+    public function merge(Collection $arrayToMerge)
     {
         return new self(array_merge($this->array, $arrayToMerge->toArray()));
     }
@@ -68,7 +68,7 @@ class ArrayObj
 
     public function delete($toDelete)
     {
-        return new ArrayObj(array_values(array_filter(array_map(function ($item) use ($toDelete) {
+        return new Collection(array_values(array_filter(array_map(function ($item) use ($toDelete) {
             return $item == $toDelete ? null : $item;
         }, $this->array))));
     }
