@@ -51,7 +51,7 @@ class Grid
         $indexToReplace = $targetIndexes[array_rand($targetIndexes)];
         $flattened[$indexToReplace] = $replace;
 
-        return $this->stack($flattened);
+        return self::fromArray($this->stack($flattened));
     }
 
     private function flatten()
@@ -67,16 +67,32 @@ class Grid
         $stacked = [];
 
         for ($i = 0; $i < $size; $i++) {
-            $stacked[$i] = new Collection(array_slice($flattened, $size*$i, $size));
+            $stacked[$i] = array_slice($flattened, $size*$i, $size);
         }
 
-        return new self($stacked);
+        return $stacked;
     }
 
+    /**
+     * @param int $size
+     * @param mixed $fillValue
+     * @return Grid
+     */
     public static function createFilled($size, $fillValue)
     {
-        return new Grid(array_map(function () use ($size, $fillValue) {
-            return new Collection(array_fill(0, $size, $fillValue));
+        return self::fromArray(array_map(function () use ($size, $fillValue) {
+            return array_fill(0, $size, $fillValue);
         }, range(0, $size-1)));
+    }
+
+    /**
+     * @param array $array
+     * @return self
+     */
+    public static function fromArray(array $array)
+    {
+        return new self(array_map(function ($row) {
+            return new Collection($row);
+        }, $array));
     }
 }

@@ -33,11 +33,13 @@ class Game
 
     public function run()
     {
-        //$grid = $this->createEmptyGrid($this->size);
         $grid = Grid::createFilled($this->size, EMPTY_CELL);
         $grid = $this->injectRandom($grid, 2);
 
-        $this->output->renderBoard($grid->toArray(), $this->score);
+        // FIXME
+        $grid = $grid->toArray();
+
+        $this->output->renderBoard($grid, $this->score);
 
         $moveCalculator = new MoveCalculator($grid);
 
@@ -57,10 +59,16 @@ class Game
             $grid = $this->takeTurn($grid, $move, $moveCalculator);
             $this->output->renderBoard($grid, $this->score);
 
+            // FIXME
+            $grid = Grid::fromArray($grid);
+
             if ($this->hasWinningTile($grid)) {
                 $this->output->renderWin($this->winningTile);
                 break;
             }
+
+            // FIXME
+            $grid = $grid->toArray();
 
             $moveCalculator = new MoveCalculator($grid);
         }
@@ -72,10 +80,12 @@ class Game
     {
         $randomChoices = [2,4];
 
-        return array_reduce(range(0, $numberOfCells - 1), function ($carry) use ($randomChoices) {
+        for ($i = 0; $i < $numberOfCells; $i++) {
             $randomNumber = $randomChoices[rand(0, 1)];
-            return $carry->replaceRandom(EMPTY_CELL, $randomNumber);
-        }, $grid);
+            $grid = $grid->replaceRandom(EMPTY_CELL, $randomNumber);
+        }
+
+        return $grid;
     }
 
     private function hasWinningTile($grid)
@@ -89,7 +99,10 @@ class Game
     {
         $this->score += $this->scorer->forMove($grid, $move);
         $grid = $moveCalculator->makeMove($move);
+
+        $grid = Grid::fromArray($grid);
         $grid = $this->injectRandom($grid, 1);
+        $grid = $grid->toArray();
 
         return $grid;
     }
