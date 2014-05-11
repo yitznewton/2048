@@ -38,9 +38,6 @@ class Game
 
         $this->output->renderBoard($grid, $this->score);
 
-        // FIXME
-        $grid = $grid->toArray();
-
         $moveCalculator = new MoveCalculator($grid);
 
         while ($moveCalculator->hasPossibleMoves()) {
@@ -58,18 +55,12 @@ class Game
 
             $grid = $this->takeTurn($grid, $move, $moveCalculator);
 
-            // FIXME
-            $grid = Grid::fromArray($grid);
-
             $this->output->renderBoard($grid, $this->score);
 
             if ($this->hasWinningTile($grid)) {
                 $this->output->renderWin($this->winningTile);
                 break;
             }
-
-            // FIXME
-            $grid = $grid->toArray();
 
             $moveCalculator = new MoveCalculator($grid);
         }
@@ -98,12 +89,15 @@ class Game
 
     private function takeTurn($grid, $move, $moveCalculator)
     {
+        // FIXME
+        $grid = $grid->toArray();
         $this->score += $this->scorer->forMove($grid, $move);
+        // FIXME
+        $grid = Grid::fromArray($grid);
+
         $grid = $moveCalculator->makeMove($move);
 
-        $grid = Grid::fromArray($grid);
         $grid = $this->injectRandom($grid, 1);
-        $grid = $grid->toArray();
 
         return $grid;
     }

@@ -2,6 +2,7 @@
 
 namespace Yitznewton\TwentyFortyEight\Tests;
 
+use Yitznewton\TwentyFortyEight\Grid;
 use Yitznewton\TwentyFortyEight\Move;
 use Yitznewton\TwentyFortyEight\MoveCalculator;
 
@@ -158,6 +159,14 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
             [
                 [
                     [2,32,8],
+                    [16,16,128],
+                    [64,512,256],
+                ],
+                true,
+            ],
+            [
+                [
+                    [2,32,8],
                     [4,16,128],
                     [64,16,256],
                 ],
@@ -208,10 +217,10 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
             [2,-1],
         ]);
 
-        $expected = [
+        $expected = Grid::fromArray([
             [2,-1],
             [2,-1],
-        ];
+        ]);
 
         $this->assertEquals($expected, $calculator->makeMove(Move::LEFT));
     }
@@ -224,11 +233,11 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
             [2,4,8],
         ]);
 
-        $expected = [
+        $expected = Grid::fromArray([
             [2,-1,-1],
             [4,-1,-1],
             [2,4,8],
-        ];
+        ]);
 
         $this->assertEquals($expected, $calculator->makeMove(Move::LEFT));
     }
@@ -242,7 +251,7 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
     public function testMakeMoveWithDifferingAdjacentCells(array $grid, array $expected, $move)
     {
         $calculator = $this->getCalculator($grid);
-        $this->assertEquals($expected, $calculator->makeMove($move));
+        $this->assertEquals(Grid::fromArray($expected), $calculator->makeMove($move));
     }
 
     public function testMakeMoveShiftIntoEmpty()
@@ -252,10 +261,10 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
             [2,4],
         ]);
 
-        $expected = [
+        $expected = Grid::fromArray([
             [2,-1],
             [2,4],
-        ];
+        ]);
 
         $this->assertEquals($expected, $calculator->makeMove(Move::LEFT));
     }
@@ -269,7 +278,7 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
     public function testMakeMoveWithCellsToMerge(array $grid, array $expected, $move)
     {
         $calculator = $this->getCalculator($grid);
-        $this->assertEquals($expected, $calculator->makeMove($move));
+        $this->assertEquals(Grid::fromArray($expected), $calculator->makeMove($move));
     }
 
     /**
@@ -295,6 +304,6 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
 
     private function getCalculator($grid)
     {
-        return new MoveCalculator($grid);
+        return new MoveCalculator(Grid::fromArray($grid));
     }
 }

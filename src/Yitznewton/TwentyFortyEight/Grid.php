@@ -33,7 +33,7 @@ class Grid
 
     public function contains($value)
     {
-        return $this->reduce(function ($carry, $item) use ($value) {
+        return array_reduce($this->flatten(), function ($carry, $item) use ($value) {
             return $carry || $item == $value;
         }, false);
     }

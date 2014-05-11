@@ -7,9 +7,9 @@ class MoveCalculator
     private $grid;
 
     /**
-     * @param int[][] $grid
+     * @param Grid $grid
      */
-    public function __construct(array $grid)
+    public function __construct(Grid $grid)
     {
         $this->grid = $grid;
     }
@@ -19,6 +19,10 @@ class MoveCalculator
      */
     public function hasPossibleMoves()
     {
+        if ($this->grid->contains(EMPTY_CELL)) {
+            return true;
+        }
+
         $possibilityByMove = array_map([$this, 'isPossibleMove'], Move::getAll());
         return (bool) array_filter($possibilityByMove);
     }
@@ -40,13 +44,13 @@ class MoveCalculator
     {
         $rotater = new GridRotater($move);
 
-        $rotatedGrid = $rotater->rotateForMove($this->grid, $move);
+        $rotatedGrid = $rotater->rotateForMove($this->grid->toArray(), $move);
 
         $calculatedGrid = array_map(function ($row) {
             return $this->collapseAndPadRow($row);
         }, $rotatedGrid);
 
-        return $rotater->unrotateForMove($calculatedGrid, $move);
+        return Grid::fromArray($rotater->unrotateForMove($calculatedGrid, $move));
     }
 
     private function collapseAndPadRow($row)
