@@ -74,7 +74,7 @@ class Game
 
         for ($i = 0; $i < $numberOfCells; $i++) {
             $randomNumber = $randomChoices[rand(0, 1)];
-            $grid = $grid->replaceRandom(EMPTY_CELL, $randomNumber);
+            $grid = $grid->replaceRandom(Grid::EMPTY_CELL, $randomNumber);
         }
 
         return $grid;
@@ -87,7 +87,7 @@ class Game
     private function createGrid($size)
     {
         return Grid::fromArray(array_map(function () use ($size) {
-            return array_fill(0, $size, EMPTY_CELL);
+            return array_fill(0, $size, Grid::EMPTY_CELL);
         }, range(0, $size-1)));
     }
 

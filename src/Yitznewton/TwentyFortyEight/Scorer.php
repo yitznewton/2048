@@ -20,7 +20,7 @@ class Scorer
 
     private function forRow($row, $cumulative = 0)
     {
-        $row = $row->delete(EMPTY_CELL);
+        $row = $row->delete(Grid::EMPTY_CELL);
 
         if ($row->count() < 2) {
             return $cumulative;

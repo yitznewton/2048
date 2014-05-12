@@ -19,7 +19,7 @@ class MoveCalculator
      */
     public function hasPossibleMoves()
     {
-        if ($this->grid->contains(EMPTY_CELL)) {
+        if ($this->grid->contains(Grid::EMPTY_CELL)) {
             return true;
         }
 
@@ -61,7 +61,7 @@ class MoveCalculator
 
     private function collapseRow(Collection $row)
     {
-        $row = $row->delete(EMPTY_CELL);
+        $row = $row->delete(Grid::EMPTY_CELL);
 
         if ($row->count() < 2) {
             return $row;
@@ -80,7 +80,7 @@ class MoveCalculator
     private function padRowWithEmptyCells(Collection $row, $size)
     {
         while ($row->count() < $size) {
-            $row = $row->append(EMPTY_CELL);
+            $row = $row->append(Grid::EMPTY_CELL);
         }
 
         return $row->toArray();
