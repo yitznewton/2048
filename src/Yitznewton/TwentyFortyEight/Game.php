@@ -13,7 +13,6 @@ class Game
     private $input;
     private $output;
     private $scorer;
-    private $score;
 
     /**
      * @param int $size
@@ -28,7 +27,6 @@ class Game
         $this->input = $input;
         $this->output = $output;
         $this->scorer = new Scorer();
-        $this->score = 0;
     }
 
     public function run()
@@ -36,9 +34,9 @@ class Game
         $grid = $this->createGrid($this->size);
         $grid = $this->injectRandom($grid, 2);
 
-        $this->output->renderBoard($grid, $this->score);
+        $this->output->renderBoard($grid, $this->scorer->getScore());
 
-        $moveCalculator = new MoveCalculator($grid);
+        $moveCalculator = $this->getMoveCalculator($grid);
 
         while ($moveCalculator->hasPossibleMoves()) {
             try {
@@ -55,17 +53,17 @@ class Game
 
             $grid = $this->takeTurn($grid, $move, $moveCalculator);
 
-            $this->output->renderBoard($grid, $this->score);
+            $this->output->renderBoard($grid, $this->scorer->getScore());
 
             if ($this->hasWinningTile($grid)) {
                 $this->output->renderWin($this->winningTile);
                 break;
             }
 
-            $moveCalculator = new MoveCalculator($grid);
+            $moveCalculator = $this->getMoveCalculator($grid);
         }
 
-        $this->output->renderGameOver($this->score);
+        $this->output->renderGameOver($this->scorer->getScore());
     }
 
     private function injectRandom($grid, $numberOfCells)
@@ -101,10 +99,16 @@ class Game
 
     private function takeTurn($grid, $move, $moveCalculator)
     {
-        $this->score += $this->scorer->forMove($grid, $move);
         $grid = $moveCalculator->makeMove($move);
         $grid = $this->injectRandom($grid, 1);
 
         return $grid;
+    }
+
+    private function getMoveCalculator($grid)
+    {
+        $moveCalculator = new MoveCalculator($grid);
+        $moveCalculator->addListener($this->scorer);
+        return $moveCalculator;
     }
 }

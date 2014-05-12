@@ -2,6 +2,11 @@
 
 namespace Yitznewton\TwentyFortyEight;
 
-class MoveListener
+interface MoveListener
 {
-} 
+    /**
+     * @param array $cells
+     * @return void
+     */
+    public function addCollapseEvent(array $cells);
+}
