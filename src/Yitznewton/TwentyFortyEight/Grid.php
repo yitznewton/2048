@@ -4,6 +4,8 @@ namespace Yitznewton\TwentyFortyEight;
 
 class Grid
 {
+    const EMPTY_CELL = -1;
+
     private $rows;
 
     /**

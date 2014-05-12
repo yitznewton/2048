@@ -5,6 +5,8 @@ namespace Yitznewton\TwentyFortyEight\Tests;
 use Yitznewton\TwentyFortyEight\Grid;
 use Yitznewton\TwentyFortyEight\Move;
 use Yitznewton\TwentyFortyEight\MoveCalculator;
+use Yitznewton\TwentyFortyEight\MoveListener;
+use Yitznewton\TwentyFortyEight\Tests\Doubles\StackListener;
 
 /**
  * @SuppressWarnings(PHPMD.TooManyMethods)
@@ -318,8 +320,27 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $this->getCalculator($grid)->isPossibleMove($move));
     }
 
-    private function getCalculator($grid)
+    public function testMergeListener()
     {
-        return new MoveCalculator(Grid::fromArray($grid));
+        $grid = [
+            [3,3],
+            [-1,-1],
+        ];
+        $listener = new StackListener();
+        $this->getCalculator($grid, $listener)->makeMove(Move::LEFT);
+
+        $expected = [['addCollapseEvent', [3,3]]];
+        $this->assertEquals($expected, $listener->getEvents());
+    }
+
+    private function getCalculator($grid, MoveListener $listener = null)
+    {
+        $calculator = new MoveCalculator(Grid::fromArray($grid));
+
+        if ($listener) {
+            $calculator->addListener($listener);
+        }
+
+        return $calculator;
     }
 }

@@ -101,7 +101,7 @@ class ConsoleOutput implements Output
 
     private function cellToString($cell)
     {
-        if ($cell == EMPTY_CELL) {
+        if ($cell == Grid::EMPTY_CELL) {
             return '';
         }
 

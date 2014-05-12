@@ -2,35 +2,23 @@
 
 namespace Yitznewton\TwentyFortyEight;
 
-class Scorer
+class Scorer implements MoveListener
 {
-    /**
-     * @param Grid $startingGrid
-     * @param mixed $move
-     * @return int
-     */
-    public function forMove(Grid $startingGrid, $move)
-    {
-        $rotatedGrid = (new GridRotater())->rotateForMove($startingGrid, $move);
+    private $score = 0;
 
-        return array_sum($rotatedGrid->map(function ($row) {
-            return $this->forRow($row);
-        }));
+    /**
+     * @param array $cells
+     */
+    public function addCollapseEvent(array $cells)
+    {
+        $this->score += array_sum($cells);
     }
 
-    private function forRow($row, $cumulative = 0)
+    /**
+     * @return int
+     */
+    public function getScore()
     {
-        $row = $row->delete(EMPTY_CELL);
-
-        if ($row->count() < 2) {
-            return $cumulative;
-        }
-
-        if ($row->index(0) == $row->index(1)) {
-            $cumulative += $row->index(0) * 2;
-            return $this->forRow($row->slice(2), $cumulative);
-        }
-
-        return $this->forRow($row->slice(1), $cumulative);
+        return $this->score;
     }
 }
