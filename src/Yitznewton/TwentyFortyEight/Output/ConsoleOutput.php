@@ -19,11 +19,11 @@ class ConsoleOutput implements Output
     }
 
     /**
-     * @param Grid $grid
+     * @param array $grid
      * @param int $score
      * @return void
      */
-    public function renderBoard(Grid $grid, $score)
+    public function renderBoard(array $grid, $score)
     {
         $this->clearScreen();
         $this->printHeader($grid, $score);
@@ -63,13 +63,11 @@ class ConsoleOutput implements Output
 
         $this->printSolidLine($boardWidth);
 
-        $gridArray = $grid->toArray();
-
-        for ($i = 0; $i < count($gridArray); $i++) {
-            $row = $gridArray[$i];
+        for ($i = 0; $i < count($grid); $i++) {
+            $row = $grid[$i];
             $this->printRow($row);
 
-            if (!$this->isLastRow($i, $gridArray)) {
+            if (!$this->isLastRow($i, $grid)) {
                 $this->printBlankLine($boardWidth);
             }
         }
@@ -119,7 +117,7 @@ class ConsoleOutput implements Output
     private function calculateBoardWidth($grid)
     {
         $combinedBorderWidth = 2;
-        return $grid->count() * self::CELL_WIDTH + $combinedBorderWidth;
+        return count($grid) * self::CELL_WIDTH + $combinedBorderWidth;
     }
 
     private function clearScreen()
