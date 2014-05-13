@@ -1,6 +1,8 @@
 <?php
 
-namespace Yitznewton\TwentyFortyEight;
+namespace Yitznewton\TwentyFortyEight\Move;
+
+use Yitznewton\TwentyFortyEight\Grid;
 
 class MoveCalculator
 {

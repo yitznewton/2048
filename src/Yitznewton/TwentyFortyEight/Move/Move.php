@@ -1,6 +1,9 @@
 <?php
 
-namespace Yitznewton\TwentyFortyEight;
+namespace Yitznewton\TwentyFortyEight\Move;
+
+use Yitznewton\TwentyFortyEight\Collection;
+use Yitznewton\TwentyFortyEight\Grid;
 
 class Move
 {

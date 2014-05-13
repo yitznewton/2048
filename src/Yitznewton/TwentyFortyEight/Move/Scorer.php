@@ -1,6 +1,6 @@
 <?php
 
-namespace Yitznewton\TwentyFortyEight;
+namespace Yitznewton\TwentyFortyEight\Move;
 
 class Scorer implements MoveListener
 {

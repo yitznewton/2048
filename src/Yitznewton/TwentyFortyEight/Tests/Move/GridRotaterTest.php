@@ -1,10 +1,10 @@
 <?php
 
-namespace Yitznewton\TwentyFortyEight\Tests;
+namespace Yitznewton\TwentyFortyEight\Tests\Move;
 
 use Yitznewton\TwentyFortyEight\Grid;
-use Yitznewton\TwentyFortyEight\GridRotater;
-use Yitznewton\TwentyFortyEight\Move;
+use Yitznewton\TwentyFortyEight\Move\GridRotater;
+use Yitznewton\TwentyFortyEight\Move\Move;
 
 class GridRotaterTest extends \PHPUnit_Framework_TestCase
 {

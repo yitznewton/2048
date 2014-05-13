@@ -4,6 +4,8 @@ namespace Yitznewton\TwentyFortyEight;
 
 use Yitznewton\TwentyFortyEight\Input\Input;
 use Yitznewton\TwentyFortyEight\Input\UnrecognizedInputException;
+use Yitznewton\TwentyFortyEight\Move\MoveCalculator;
+use Yitznewton\TwentyFortyEight\Move\Scorer;
 use Yitznewton\TwentyFortyEight\Output\Output;
 
 class Game

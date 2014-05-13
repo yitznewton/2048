@@ -1,12 +1,12 @@
 <?php
 
-namespace Yitznewton\TwentyFortyEight\Tests;
+namespace Yitznewton\TwentyFortyEight\Tests\Move;
 
 use Yitznewton\TwentyFortyEight\Grid;
-use Yitznewton\TwentyFortyEight\Move;
-use Yitznewton\TwentyFortyEight\MoveCalculator;
-use Yitznewton\TwentyFortyEight\MoveListener;
-use Yitznewton\TwentyFortyEight\Tests\Doubles\StackListener;
+use Yitznewton\TwentyFortyEight\Move\Move;
+use Yitznewton\TwentyFortyEight\Move\MoveCalculator;
+use Yitznewton\TwentyFortyEight\Move\MoveListener;
+use Yitznewton\TwentyFortyEight\Tests\Doubles\Move\StackListener;
 
 /**
  * @SuppressWarnings(PHPMD.TooManyMethods)

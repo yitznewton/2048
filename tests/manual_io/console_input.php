@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Yitznewton\TwentyFortyEight\Input\MappedInput;
 use Yitznewton\TwentyFortyEight\Input\Device\KeyboardInputDevice;
-use Yitznewton\TwentyFortyEight\Move;
+use Yitznewton\TwentyFortyEight\Move\Move;
 
 $device = new KeyboardInputDevice();
 
