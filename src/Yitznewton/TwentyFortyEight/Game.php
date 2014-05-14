@@ -4,6 +4,7 @@ namespace Yitznewton\TwentyFortyEight;
 
 use Yitznewton\TwentyFortyEight\Input\Input;
 use Yitznewton\TwentyFortyEight\Input\UnrecognizedInputException;
+use Yitznewton\TwentyFortyEight\Move\ImpossibleMoveException;
 use Yitznewton\TwentyFortyEight\Move\MoveCalculator;
 use Yitznewton\TwentyFortyEight\Move\Scorer;
 use Yitznewton\TwentyFortyEight\Output\Output;
@@ -48,12 +49,12 @@ class Game
                 continue;
             }
 
-            if (!$moveCalculator->isPossibleMove($move)) {
+            try {
+                $grid = $this->takeTurn($grid, $move, $moveCalculator);
+            } catch (ImpossibleMoveException $e) {
                 // ignore
                 continue;
             }
-
-            $grid = $this->takeTurn($grid, $move, $moveCalculator);
 
             $this->output->renderBoard($grid->toArray(), $this->scorer->getScore());
 
