@@ -14,7 +14,7 @@ $grid = Grid::fromArray([
     [8,-1,16,4],
 ]);
 
-$output->renderBoard($grid->toArray(), 239348);
+$output->renderBoard($grid, 239348);
 $output->renderGameOver(1252345);
 
 $grid = Grid::fromArray([
@@ -25,5 +25,5 @@ $grid = Grid::fromArray([
     [8,2,16,64,-1],
 ]);
 
-$output->renderBoard($grid->toArray(), 2314);
+$output->renderBoard($grid, 2314);
 $output->renderGameOver(34987);

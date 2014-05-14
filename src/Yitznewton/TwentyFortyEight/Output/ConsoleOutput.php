@@ -1,6 +1,7 @@
 <?php
 
 namespace Yitznewton\TwentyFortyEight\Output;
+
 use Yitznewton\TwentyFortyEight\Grid;
 
 /**
@@ -19,15 +20,17 @@ class ConsoleOutput implements Output
     }
 
     /**
-     * @param array $grid
+     * @param Grid $grid
      * @param int $score
      * @return void
      */
-    public function renderBoard(array $grid, $score)
+    public function renderBoard(Grid $grid, $score)
     {
+        $gridArray = $grid->toArray();
+
         $this->clearScreen();
-        $this->printHeader($grid, $score);
-        $this->printGrid($grid);
+        $this->printHeader($gridArray, $score);
+        $this->printGrid($gridArray);
     }
 
     /**

@@ -37,7 +37,7 @@ class Game
         $grid = $this->createGrid($this->size);
         $grid = $this->injectRandom($grid, 2);
 
-        $this->output->renderBoard($grid->toArray(), $this->scorer->getScore());
+        $this->output->renderBoard($grid, $this->scorer->getScore());
 
         $moveMaker = $this->getMoveMaker($grid);
 
@@ -56,7 +56,7 @@ class Game
                 continue;
             }
 
-            $this->output->renderBoard($grid->toArray(), $this->scorer->getScore());
+            $this->output->renderBoard($grid, $this->scorer->getScore());
 
             if ($this->hasWinningTile($grid)) {
                 $this->output->renderWin($this->winningTile);
