@@ -57,4 +57,10 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($array, Grid::fromArray($array)->toArray());
     }
+
+    public function testFromArrayWithNonSquare()
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+        Grid::fromArray([1,2]);
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace Yitznewton\TwentyFortyEight;
 
-class Collection
+class Collection implements \Countable
 {
     private $array;
 

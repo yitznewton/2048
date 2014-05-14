@@ -2,6 +2,9 @@
 
 namespace Yitznewton\TwentyFortyEight;
 
+/**
+ * @SuppressWarnings(PHPMD.TooManyMethods)
+ */
 class Grid
 {
     const EMPTY_CELL = -1;
@@ -13,6 +16,7 @@ class Grid
      */
     private function __construct(array $rows)
     {
+        $this->validate($rows);
         $this->rows = $rows;
     }
 
@@ -83,6 +87,17 @@ class Grid
         }
 
         return $stacked;
+    }
+
+    private function validate(array $rows)
+    {
+        $ySize = count($rows);
+
+        array_map(function ($cells) use ($ySize) {
+            if (count($cells) != $ySize) {
+                throw new \InvalidArgumentException('Must be a square');
+            }
+        }, $rows);
     }
 
     /**

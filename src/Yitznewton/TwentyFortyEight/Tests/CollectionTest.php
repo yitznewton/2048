@@ -16,7 +16,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     public function testCount()
     {
         $arrayObj = new Collection([1,2,3]);
-        $this->assertEquals(3, $arrayObj->count());
+        $this->assertEquals(3, count($arrayObj));
     }
 
     public function testAppend()

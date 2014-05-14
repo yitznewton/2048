@@ -39,14 +39,14 @@ class Move
     private function collapseAndPadRow($row)
     {
         $collapsedRow = $this->collapseRow($row);
-        return $this->padRowWithEmptyCells($collapsedRow, $row->count());
+        return $this->padRowWithEmptyCells($collapsedRow, count($row));
     }
 
     private function collapseRow(Collection $row)
     {
         $row = $row->delete(Grid::EMPTY_CELL);
 
-        if ($row->count() < 2) {
+        if (count($row) < 2) {
             return $row;
         }
 
@@ -63,7 +63,7 @@ class Move
 
     private function padRowWithEmptyCells(Collection $row, $size)
     {
-        while ($row->count() < $size) {
+        while (count($row) < $size) {
             $row = $row->append(Grid::EMPTY_CELL);
         }
 
