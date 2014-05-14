@@ -5,14 +5,14 @@ namespace Yitznewton\TwentyFortyEight\Tests\Move;
 use Yitznewton\TwentyFortyEight\Grid;
 use Yitznewton\TwentyFortyEight\Move\ImpossibleMoveException;
 use Yitznewton\TwentyFortyEight\Move\Move;
-use Yitznewton\TwentyFortyEight\Move\MoveCalculator;
+use Yitznewton\TwentyFortyEight\Move\MoveMaker;
 use Yitznewton\TwentyFortyEight\Move\MoveListener;
 use Yitznewton\TwentyFortyEight\Tests\Doubles\Move\StackListener;
 
 /**
  * @SuppressWarnings(PHPMD.TooManyMethods)
  */
-class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
+class MoveMakerTest extends \PHPUnit_Framework_TestCase
 {
     public function dataForImpossibleMove()
     {
@@ -301,7 +301,7 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
 
     private function getCalculator($grid, MoveListener $listener = null)
     {
-        $calculator = new MoveCalculator(Grid::fromArray($grid));
+        $calculator = new MoveMaker(Grid::fromArray($grid));
 
         if ($listener) {
             $calculator->addListener($listener);

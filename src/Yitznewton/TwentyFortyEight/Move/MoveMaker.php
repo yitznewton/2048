@@ -4,7 +4,7 @@ namespace Yitznewton\TwentyFortyEight\Move;
 
 use Yitznewton\TwentyFortyEight\Grid;
 
-class MoveCalculator
+class MoveMaker
 {
     private $grid;
 

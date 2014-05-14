@@ -5,7 +5,7 @@ namespace Yitznewton\TwentyFortyEight;
 use Yitznewton\TwentyFortyEight\Input\Input;
 use Yitznewton\TwentyFortyEight\Input\UnrecognizedInputException;
 use Yitznewton\TwentyFortyEight\Move\ImpossibleMoveException;
-use Yitznewton\TwentyFortyEight\Move\MoveCalculator;
+use Yitznewton\TwentyFortyEight\Move\MoveMaker;
 use Yitznewton\TwentyFortyEight\Move\Scorer;
 use Yitznewton\TwentyFortyEight\Output\Output;
 
@@ -39,9 +39,9 @@ class Game
 
         $this->output->renderBoard($grid->toArray(), $this->scorer->getScore());
 
-        $moveCalculator = $this->getMoveCalculator($grid);
+        $moveMaker = $this->getMoveMaker($grid);
 
-        while ($moveCalculator->hasPossibleMoves()) {
+        while ($moveMaker->hasPossibleMoves()) {
             try {
                 $move = $this->input->getMove();
             } catch (UnrecognizedInputException $e) {
@@ -50,7 +50,7 @@ class Game
             }
 
             try {
-                $grid = $this->takeTurn($grid, $move, $moveCalculator);
+                $grid = $this->takeTurn($grid, $move, $moveMaker);
             } catch (ImpossibleMoveException $e) {
                 // ignore
                 continue;
@@ -63,7 +63,7 @@ class Game
                 break;
             }
 
-            $moveCalculator = $this->getMoveCalculator($grid);
+            $moveMaker = $this->getMoveMaker($grid);
         }
 
         $this->output->renderGameOver($this->scorer->getScore());
@@ -100,18 +100,18 @@ class Game
         }, false);
     }
 
-    private function takeTurn($grid, $move, $moveCalculator)
+    private function takeTurn($grid, $move, $moveMaker)
     {
-        $grid = $moveCalculator->makeMove($move);
+        $grid = $moveMaker->makeMove($move);
         $grid = $this->injectRandom($grid, 1);
 
         return $grid;
     }
 
-    private function getMoveCalculator($grid)
+    private function getMoveMaker($grid)
     {
-        $moveCalculator = new MoveCalculator($grid);
-        $moveCalculator->addListener($this->scorer);
-        return $moveCalculator;
+        $moveMaker = new MoveMaker($grid);
+        $moveMaker->addListener($this->scorer);
+        return $moveMaker;
     }
 }
