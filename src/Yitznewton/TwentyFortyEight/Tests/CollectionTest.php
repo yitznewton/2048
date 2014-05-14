@@ -9,27 +9,27 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     public function testToArray()
     {
         $array = [1,2,3];
-        $arrayObj = new Collection($array);
-        $this->assertSame($array, $arrayObj->toArray());
+        $collection = new Collection($array);
+        $this->assertSame($array, $collection->toArray());
     }
 
     public function testCount()
     {
-        $arrayObj = new Collection([1,2,3]);
-        $this->assertEquals(3, count($arrayObj));
+        $collection = new Collection([1,2,3]);
+        $this->assertEquals(3, count($collection));
     }
 
     public function testAppend()
     {
-        $arrayObj = new Collection([1,2,3]);
-        $this->assertEquals(new Collection([1,2,3,4]), $arrayObj->append(4));
+        $collection = new Collection([1,2,3]);
+        $this->assertEquals(new Collection([1,2,3,4]), $collection->append(4));
     }
 
     public function testSlice()
     {
-        $arrayObj = new Collection([1,2,3]);
-        $this->assertEquals(new Collection([2,3]), $arrayObj->slice(1));
-        $this->assertEquals(new Collection([2]), $arrayObj->slice(1, 1));
+        $collection = new Collection([1,2,3]);
+        $this->assertEquals(new Collection([2,3]), $collection->slice(1));
+        $this->assertEquals(new Collection([2]), $collection->slice(1, 1));
     }
 
     public function testMerge()
@@ -41,16 +41,16 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testIndex()
     {
-        $arrayObj = new Collection([1,2,3]);
-        $this->assertEquals(2, $arrayObj->index(1));
+        $collection = new Collection([1,2,3]);
+        $this->assertEquals(2, $collection->index(1));
 
         $this->setExpectedException(\OutOfRangeException::class);
-        $arrayObj->index(999);
+        $collection->index(999);
     }
 
     public function testDelete()
     {
-        $arrayObj = new Collection([1,2,3,4,3,5,3,6,3,7]);
-        $this->assertEquals(new Collection([1,2,4,5,6,7]), $arrayObj->delete(3));
+        $collection = new Collection([1,2,3,4,3,5,3,6,3,7]);
+        $this->assertEquals(new Collection([1,2,4,5,6,7]), $collection->delete(3));
     }
 }
