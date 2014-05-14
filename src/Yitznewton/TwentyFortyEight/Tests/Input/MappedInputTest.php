@@ -4,7 +4,7 @@ namespace Yitznewton\TwentyFortyEight\Tests\Input;
 
 use Yitznewton\TwentyFortyEight\Input\MappedInput;
 use Yitznewton\TwentyFortyEight\Input\UnrecognizedInputException;
-use Yitznewton\TwentyFortyEight\Move;
+use Yitznewton\TwentyFortyEight\Move\Move;
 use Yitznewton\TwentyFortyEight\Tests\Doubles\Input\Device\CharacterInputStub;
 
 class MappedInputTest extends \PHPUnit_Framework_TestCase

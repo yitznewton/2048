@@ -1,8 +1,8 @@
 <?php
 
-namespace Yitznewton\TwentyFortyEight\Tests;
+namespace Yitznewton\TwentyFortyEight\Tests\Move;
 
-use Yitznewton\TwentyFortyEight\Tests\Doubles\StackListener;
+use Yitznewton\TwentyFortyEight\Tests\Doubles\Move\StackListener;
 
 class StackListenerTest extends \PHPUnit_Framework_TestCase
 {

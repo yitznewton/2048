@@ -1,26 +1,23 @@
 <?php
 
-namespace Yitznewton\TwentyFortyEight\Tests;
+namespace Yitznewton\TwentyFortyEight\Tests\Move;
 
 use Yitznewton\TwentyFortyEight\Grid;
-use Yitznewton\TwentyFortyEight\Move;
-use Yitznewton\TwentyFortyEight\MoveCalculator;
-use Yitznewton\TwentyFortyEight\MoveListener;
-use Yitznewton\TwentyFortyEight\Tests\Doubles\StackListener;
+use Yitznewton\TwentyFortyEight\Move\ImpossibleMoveException;
+use Yitznewton\TwentyFortyEight\Move\Move;
+use Yitznewton\TwentyFortyEight\Move\MoveMaker;
+use Yitznewton\TwentyFortyEight\Move\MoveListener;
+use Yitznewton\TwentyFortyEight\Tests\Doubles\Move\StackListener;
 
 /**
  * @SuppressWarnings(PHPMD.TooManyMethods)
  */
-class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
+class MoveMakerTest extends \PHPUnit_Framework_TestCase
 {
-    public function dataForDifferingAdjacentCells()
+    public function dataForImpossibleMove()
     {
         return [
             [
-                [
-                    [2,4],
-                    [-1,-1],
-                ],
                 [
                     [2,4],
                     [-1,-1],
@@ -32,17 +29,9 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
                     [2,2],
                     [4,-1],
                 ],
-                [
-                    [2,2],
-                    [4,-1],
-                ],
                 Move::UP,
             ],
             [
-                [
-                    [2,4],
-                    [-1,4],
-                ],
                 [
                     [2,4],
                     [-1,4],
@@ -54,11 +43,14 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
                     [-1,2],
                     [2,4],
                 ],
-                [
-                    [-1,2],
-                    [2,4],
-                ],
                 Move::DOWN,
+            ],
+            [
+                [
+                    [2,-1],
+                    [2,-1],
+                ],
+                Move::LEFT,
             ],
         ];
     }
@@ -228,21 +220,6 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testMakeMoveWithEmptyAdjacentCells()
-    {
-        $calculator = $this->getCalculator([
-            [2,-1],
-            [2,-1],
-        ]);
-
-        $expected = Grid::fromArray([
-            [2,-1],
-            [2,-1],
-        ]);
-
-        $this->assertEquals($expected, $calculator->makeMove(Move::LEFT));
-    }
-
     public function testMakeMoveEmptiesCollapseFully()
     {
         $calculator = $this->getCalculator([
@@ -261,15 +238,15 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider dataForDifferingAdjacentCells
+     * @dataProvider dataForImpossibleMove
      * @param array $grid
-     * @param array $expected
      * @param mixed $move
      */
-    public function testMakeMoveWithDifferingAdjacentCells(array $grid, array $expected, $move)
+    public function testMakeMoveWithImpossibleMove(array $grid, $move)
     {
         $calculator = $this->getCalculator($grid);
-        $this->assertEquals(Grid::fromArray($expected), $calculator->makeMove($move));
+        $this->setExpectedException(ImpossibleMoveException::class);
+        $calculator->makeMove($move);
     }
 
     public function testMakeMoveShiftIntoEmpty()
@@ -309,17 +286,6 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $this->getCalculator($grid)->hasPossibleMoves());
     }
 
-    /**
-     * @dataProvider dataForIsPossibleMove
-     * @param array $grid
-     * @param mixed $move
-     * @param bool $expected
-     */
-    public function testIsPossibleMove(array $grid, $move, $expected)
-    {
-        $this->assertSame($expected, $this->getCalculator($grid)->isPossibleMove($move));
-    }
-
     public function testMergeListener()
     {
         $grid = [
@@ -335,7 +301,7 @@ class MoveCalculatorTest extends \PHPUnit_Framework_TestCase
 
     private function getCalculator($grid, MoveListener $listener = null)
     {
-        $calculator = new MoveCalculator(Grid::fromArray($grid));
+        $calculator = new MoveMaker(Grid::fromArray($grid));
 
         if ($listener) {
             $calculator->addListener($listener);

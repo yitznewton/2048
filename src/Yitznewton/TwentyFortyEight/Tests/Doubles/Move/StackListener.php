@@ -1,8 +1,8 @@
 <?php
 
-namespace Yitznewton\TwentyFortyEight\Tests\Doubles;
+namespace Yitznewton\TwentyFortyEight\Tests\Doubles\Move;
 
-use Yitznewton\TwentyFortyEight\MoveListener;
+use Yitznewton\TwentyFortyEight\Move\MoveListener;
 
 class StackListener implements MoveListener
 {

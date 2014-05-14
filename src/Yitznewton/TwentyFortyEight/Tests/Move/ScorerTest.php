@@ -1,8 +1,8 @@
 <?php
 
-namespace Yitznewton\TwentyFortyEight\Tests;
+namespace Yitznewton\TwentyFortyEight\Tests\Move;
 
-use Yitznewton\TwentyFortyEight\Scorer;
+use Yitznewton\TwentyFortyEight\Move\Scorer;
 
 class ScorerTest extends \PHPUnit_Framework_TestCase
 {

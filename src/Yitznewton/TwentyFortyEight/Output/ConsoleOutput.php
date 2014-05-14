@@ -1,6 +1,7 @@
 <?php
 
 namespace Yitznewton\TwentyFortyEight\Output;
+
 use Yitznewton\TwentyFortyEight\Grid;
 
 /**
@@ -25,9 +26,11 @@ class ConsoleOutput implements Output
      */
     public function renderBoard(Grid $grid, $score)
     {
+        $gridArray = $grid->toArray();
+
         $this->clearScreen();
-        $this->printHeader($grid, $score);
-        $this->printGrid($grid);
+        $this->printHeader($gridArray, $score);
+        $this->printGrid($gridArray);
     }
 
     /**
@@ -63,13 +66,11 @@ class ConsoleOutput implements Output
 
         $this->printSolidLine($boardWidth);
 
-        $gridArray = $grid->toArray();
-
-        for ($i = 0; $i < count($gridArray); $i++) {
-            $row = $gridArray[$i];
+        for ($i = 0; $i < count($grid); $i++) {
+            $row = $grid[$i];
             $this->printRow($row);
 
-            if (!$this->isLastRow($i, $gridArray)) {
+            if (!$this->isLastRow($i, $grid)) {
                 $this->printBlankLine($boardWidth);
             }
         }
@@ -119,7 +120,7 @@ class ConsoleOutput implements Output
     private function calculateBoardWidth($grid)
     {
         $combinedBorderWidth = 2;
-        return $grid->count() * self::CELL_WIDTH + $combinedBorderWidth;
+        return count($grid) * self::CELL_WIDTH + $combinedBorderWidth;
     }
 
     private function clearScreen()

@@ -3,7 +3,7 @@
 use Yitznewton\TwentyFortyEight\Game;
 use Yitznewton\TwentyFortyEight\Input\Device\KeyboardInputDevice;
 use Yitznewton\TwentyFortyEight\Input\MappedInput;
-use Yitznewton\TwentyFortyEight\Move;
+use Yitznewton\TwentyFortyEight\Move\Move;
 use Yitznewton\TwentyFortyEight\Output\ConsoleOutput;
 
 require_once __DIR__ . '/vendor/autoload.php';
