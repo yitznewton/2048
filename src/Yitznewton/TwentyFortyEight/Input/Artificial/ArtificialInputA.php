@@ -10,7 +10,7 @@ use Yitznewton\TwentyFortyEight\Move\Scorer;
 
 class ArtificialInputA implements Input
 {
-    const MAX_MOVES_TO_TRY = 1;
+    const MAX_MOVES_TO_TRY = 2;
 
     private $grid;
 
@@ -39,19 +39,20 @@ class ArtificialInputA implements Input
     private function getMovesWithScores(Grid $grid, $leftToTry = self::MAX_MOVES_TO_TRY)
     {
         if ($leftToTry == 0) {
-            return ['nothing' => 0];
+            return [];
         }
 
         $moveMaker = new MoveMaker($grid);
         $possibleMoves = $moveMaker->getPossibleMoves();
 
-        $moveScores = array_map(function ($move) use ($grid) {
+        $moveScores = array_map(function ($move) use ($grid, $leftToTry) {
             $moveMaker = new MoveMaker($grid);
             $scorer = new Scorer();
             $moveMaker->addListener($scorer);
 
             $newGrid = $moveMaker->makeMove($move);
-            return $scorer->getScore();
+            $bestSubsequentMove = $this->max($this->getMovesWithScores($newGrid, $leftToTry-1));
+            return $scorer->getScore() + $bestSubsequentMove;
         }, $possibleMoves);
 
         $movesWithScores = array_combine($possibleMoves, $moveScores);
@@ -60,8 +61,7 @@ class ArtificialInputA implements Input
 
     private function highScoreMoves($movesWithScores)
     {
-        arsort($movesWithScores);
-        $highScore = array_values($movesWithScores)[0];
+        $highScore = $this->max($movesWithScores);
         return array_keys($movesWithScores, $highScore);
     }
 
@@ -85,5 +85,18 @@ class ArtificialInputA implements Input
 
             return null;
         });
+    }
+
+    /**
+     * @param array $array
+     * @return int
+     */
+    private function max(array $array)
+    {
+        if (empty($array)) {
+            return 0;
+        }
+
+        return max($array);
     }
 }
