@@ -2,6 +2,7 @@
 
 namespace Yitznewton\TwentyFortyEight\Input;
 
+use Yitznewton\TwentyFortyEight\Grid;
 use Yitznewton\TwentyFortyEight\Input\Device\CharacterInputDevice;
 
 class MappedInput implements Input
@@ -20,9 +21,10 @@ class MappedInput implements Input
 
     /**
      * @throws UnrecognizedInputException
+     * @param Grid $grid
      * @return mixed
      */
-    public function getMove()
+    public function getMove(Grid $grid)
     {
         $char = $this->device->getChar();
 

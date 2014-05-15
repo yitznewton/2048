@@ -7,10 +7,10 @@ use Yitznewton\TwentyFortyEight\Grid;
 
 class Move
 {
-    const UP = 1;
-    const DOWN = 2;
-    const LEFT = 3;
-    const RIGHT = 4;
+    const UP = 'U';
+    const DOWN = 'D';
+    const LEFT = 'L';
+    const RIGHT = 'R';
 
     private $grid;
     private $direction;

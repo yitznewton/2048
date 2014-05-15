@@ -43,7 +43,7 @@ class Game
 
         while ($moveMaker->hasPossibleMoves()) {
             try {
-                $move = $this->input->getMove();
+                $move = $this->input->getMove($grid);
             } catch (UnrecognizedInputException $e) {
                 // ignore this input, and listen again
                 continue;

@@ -64,7 +64,9 @@ class GridRotater
             case Move::UP:
                 return 3;
             default:
-                throw new \UnexpectedValueException('Unrecognized move');
+                throw new \UnexpectedValueException(
+                    sprintf('Unrecognized move "%s"', print_r($move, true))
+                );
         }
     }
 

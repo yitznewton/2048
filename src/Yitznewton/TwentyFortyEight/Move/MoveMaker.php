@@ -38,8 +38,21 @@ class MoveMaker
         $possibilityByMove = array_map([$this, 'isPossibleMove'], [Move::LEFT, Move::UP]);
         return (bool) array_filter($possibilityByMove);
     }
+
+    /**
+     * @return array
+     */
+    public function getPossibleMoves()
+    {
+        $allMoves = Move::getAll();
+        $possibilityByMove = array_map([$this, 'isPossibleMove'], $allMoves);
+        $hashOfPossibility = array_combine($allMoves, $possibilityByMove);
+        return array_keys(array_filter($hashOfPossibility));
+    }
+
     /**
      * @param mixed $moveDirection
+     * @throws ImpossibleMoveException
      * @return array
      */
     public function makeMove($moveDirection)
