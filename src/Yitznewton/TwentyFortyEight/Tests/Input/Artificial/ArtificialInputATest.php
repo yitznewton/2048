@@ -28,24 +28,32 @@ class ArtificialInputATest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function getWithScoringAndOneNonScoring()
+    public function getWithHighAndLowScoringAndNonScoring()
     {
         return [
             [
                 [
                     [4,4,8],
                     [16,32,8],
-                    [-1,-1,-1],
+                    [2,64,128],
                 ],
                 [Move::UP, Move::DOWN],
             ],
             [
                 [
-                    [8,8,4],
-                    [16,32,4],
                     [-1,-1,-1],
+                    [4,4,2],
+                    [16,32,64],
                 ],
                 [Move::LEFT, Move::RIGHT],
+            ],
+            [
+                [
+                    [32,8,8],
+                    [16,4,64],
+                    [2,4,128],
+                ],
+                [Move::LEFT],
             ],
         ];
     }
@@ -63,7 +71,7 @@ class ArtificialInputATest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider getWithScoringAndOneNonScoring
+     * @dataProvider getWithHighAndLowScoringAndNonScoring
      * @param array $gridArray
      * @param array $expectedMoves
      */

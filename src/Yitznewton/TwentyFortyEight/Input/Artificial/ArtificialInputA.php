@@ -40,6 +40,34 @@ class ArtificialInputA implements Input
         $movesWithScores = array_combine($possibleMoves, $moveScores);
         arsort($movesWithScores);
 
-        return array_keys($movesWithScores)[0];
+        return $this->preferredMove($this->highScoreMoves($movesWithScores));
+    }
+
+    private function preferredMove($possibleMoves)
+    {
+        $peckingOrder = [
+            Move::UP,
+            Move::LEFT,
+            Move::RIGHT,
+            Move::DOWN,
+        ];
+
+        return array_reduce($peckingOrder, function ($carry, $move) use ($possibleMoves) {
+            if ($carry) {
+                return $carry;
+            }
+
+            if (in_array($move, $possibleMoves)) {
+                return $move;
+            }
+
+            return null;
+        });
+    }
+
+    private function highScoreMoves($movesWithScores)
+    {
+        $highScore = array_values($movesWithScores)[0];
+        return array_keys($movesWithScores, $highScore);
     }
 }
