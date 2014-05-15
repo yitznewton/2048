@@ -252,7 +252,7 @@ class MoveMakerTest extends \PHPUnit_Framework_TestCase
 
     public function testMakeMoveEmptiesCollapseFully()
     {
-        $calculator = $this->getCalculator([
+        $moveMaker = $this->getMoveMaker([
             [-1,-1,2],
             [-1,2,2],
             [2,4,8],
@@ -264,7 +264,7 @@ class MoveMakerTest extends \PHPUnit_Framework_TestCase
             [2,4,8],
         ]);
 
-        $this->assertEquals($expected, $calculator->makeMove(Move::LEFT));
+        $this->assertEquals($expected, $moveMaker->makeMove(Move::LEFT));
     }
 
     /**
@@ -274,14 +274,14 @@ class MoveMakerTest extends \PHPUnit_Framework_TestCase
      */
     public function testMakeMoveWithImpossibleMove(array $grid, $move)
     {
-        $calculator = $this->getCalculator($grid);
+        $moveMaker = $this->getMoveMaker($grid);
         $this->setExpectedException(ImpossibleMoveException::class);
-        $calculator->makeMove($move);
+        $moveMaker->makeMove($move);
     }
 
     public function testMakeMoveShiftIntoEmpty()
     {
-        $calculator = $this->getCalculator([
+        $moveMaker = $this->getMoveMaker([
             [-1,2],
             [2,4],
         ]);
@@ -291,7 +291,7 @@ class MoveMakerTest extends \PHPUnit_Framework_TestCase
             [2,4],
         ]);
 
-        $this->assertEquals($expected, $calculator->makeMove(Move::LEFT));
+        $this->assertEquals($expected, $moveMaker->makeMove(Move::LEFT));
     }
 
     /**
@@ -302,8 +302,8 @@ class MoveMakerTest extends \PHPUnit_Framework_TestCase
      */
     public function testMakeMoveWithCellsToMerge(array $grid, array $expected, $move)
     {
-        $calculator = $this->getCalculator($grid);
-        $this->assertEquals(Grid::fromArray($expected), $calculator->makeMove($move));
+        $moveMaker = $this->getMoveMaker($grid);
+        $this->assertEquals(Grid::fromArray($expected), $moveMaker->makeMove($move));
     }
 
     /**
@@ -313,7 +313,7 @@ class MoveMakerTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasPossibleMoves(array $grid, $expected)
     {
-        $this->assertSame($expected, $this->getCalculator($grid)->hasPossibleMoves());
+        $this->assertSame($expected, $this->getMoveMaker($grid)->hasPossibleMoves());
     }
 
     /**
@@ -323,7 +323,7 @@ class MoveMakerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPossibleMoves(array $grid, array $possibleMoves)
     {
-        $this->assertEquals($possibleMoves, $this->getCalculator($grid)->getPossibleMoves());
+        $this->assertEquals($possibleMoves, $this->getMoveMaker($grid)->getPossibleMoves());
     }
 
     public function testMergeListener()
@@ -333,20 +333,20 @@ class MoveMakerTest extends \PHPUnit_Framework_TestCase
             [-1,-1],
         ];
         $listener = new StackListener();
-        $this->getCalculator($grid, $listener)->makeMove(Move::LEFT);
+        $this->getMoveMaker($grid, $listener)->makeMove(Move::LEFT);
 
         $expected = [['addCollapseEvent', [3,3]]];
         $this->assertEquals($expected, $listener->getEvents());
     }
 
-    private function getCalculator($grid, MoveListener $listener = null)
+    private function getMoveMaker($grid, MoveListener $listener = null)
     {
-        $calculator = new MoveMaker(Grid::fromArray($grid));
+        $moveMaker = new MoveMaker(Grid::fromArray($grid));
 
         if ($listener) {
-            $calculator->addListener($listener);
+            $moveMaker->addListener($listener);
         }
 
-        return $calculator;
+        return $moveMaker;
     }
 }
