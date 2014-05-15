@@ -19,7 +19,7 @@ class DelayedProxyInput implements Input
 
     public function getMove(Grid $grid)
     {
-        sleep($this->seconds);
+        usleep(200000);
         return $this->inputToProxy->getMove($grid);
     }
 }

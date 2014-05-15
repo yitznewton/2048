@@ -65,17 +65,7 @@ class ArtificialInputA implements Input
             Move::DOWN,
         ];
 
-        return array_reduce($peckingOrder, function ($carry, $move) use ($possibleMoves) {
-            if ($carry) {
-                return $carry;
-            }
-
-            if (in_array($move, $possibleMoves)) {
-                return $move;
-            }
-
-            return null;
-        });
+        return array_values(array_intersect($peckingOrder, $possibleMoves))[0];
     }
 
     /**
