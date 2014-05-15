@@ -58,6 +58,15 @@ class ArtificialInputATest extends \PHPUnit_Framework_TestCase
                 ],
                 Move::UP,
             ],
+//            [
+//                // avoid gaps when predicting
+//                [
+//                    [4,512,2],
+//                    [-1,-1,-1],
+//                    [2,-1,2],
+//                ],
+//                Move::UP,
+//            ],
         ];
     }
 
