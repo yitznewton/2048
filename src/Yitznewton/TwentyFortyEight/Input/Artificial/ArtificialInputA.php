@@ -10,6 +10,8 @@ use Yitznewton\TwentyFortyEight\Move\Scorer;
 
 class ArtificialInputA implements Input
 {
+    const MAX_MOVES_TO_TRY = 1;
+
     private $grid;
 
     /**
@@ -25,22 +27,42 @@ class ArtificialInputA implements Input
      */
     public function getMove()
     {
-        $moveMaker = new MoveMaker($this->grid);
+        $movesWithScores = $this->getMovesWithScores($this->grid);
+        return $this->preferredMove($this->highScoreMoves($movesWithScores));
+    }
+
+    /**
+     * @param Grid $grid
+     * @param int $leftToTry
+     * @return array
+     */
+    private function getMovesWithScores(Grid $grid, $leftToTry = self::MAX_MOVES_TO_TRY)
+    {
+        if ($leftToTry == 0) {
+            return ['nothing' => 0];
+        }
+
+        $moveMaker = new MoveMaker($grid);
         $possibleMoves = $moveMaker->getPossibleMoves();
 
-        $moveScores = array_map(function ($move) {
-            $moveMaker = new MoveMaker($this->grid);
+        $moveScores = array_map(function ($move) use ($grid) {
+            $moveMaker = new MoveMaker($grid);
             $scorer = new Scorer();
             $moveMaker->addListener($scorer);
 
-            $moveMaker->makeMove($move);
+            $newGrid = $moveMaker->makeMove($move);
             return $scorer->getScore();
         }, $possibleMoves);
 
         $movesWithScores = array_combine($possibleMoves, $moveScores);
-        arsort($movesWithScores);
+        return $movesWithScores;
+    }
 
-        return $this->preferredMove($this->highScoreMoves($movesWithScores));
+    private function highScoreMoves($movesWithScores)
+    {
+        arsort($movesWithScores);
+        $highScore = array_values($movesWithScores)[0];
+        return array_keys($movesWithScores, $highScore);
     }
 
     private function preferredMove($possibleMoves)
@@ -63,11 +85,5 @@ class ArtificialInputA implements Input
 
             return null;
         });
-    }
-
-    private function highScoreMoves($movesWithScores)
-    {
-        $highScore = array_values($movesWithScores)[0];
-        return array_keys($movesWithScores, $highScore);
     }
 }
