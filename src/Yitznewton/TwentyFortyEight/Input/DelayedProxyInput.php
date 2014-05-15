@@ -6,20 +6,20 @@ use Yitznewton\TwentyFortyEight\Grid;
 
 class DelayedProxyInput implements Input
 {
-    const DEFAULT_SECONDS = 1;
+    const DEFAULT_MICROSECONDS = 200000;
 
     private $inputToProxy;
-    private $seconds;
+    private $microseconds;
 
-    public function __construct(Input $inputToProxy, $seconds = self::DEFAULT_SECONDS)
+    public function __construct(Input $inputToProxy, $microseconds = self::DEFAULT_MICROSECONDS)
     {
         $this->inputToProxy = $inputToProxy;
-        $this->seconds = $seconds;
+        $this->microseconds = $microseconds;
     }
 
     public function getMove(Grid $grid)
     {
-        usleep(200000);
+        usleep($this->microseconds);
         return $this->inputToProxy->getMove($grid);
     }
 }
