@@ -77,9 +77,9 @@ class ArtificialInputATest extends \PHPUnit_Framework_TestCase
      */
     public function testWithOnePossibleMove($gridArray, $possibleMove)
     {
+        $input = new ArtificialInputA();
         $grid = Grid::fromArray($gridArray);
-        $input = new ArtificialInputA($grid);
-        $this->assertEquals($possibleMove, $input->getMove());
+        $this->assertEquals($possibleMove, $input->getMove($grid));
     }
 
     /**
@@ -89,8 +89,8 @@ class ArtificialInputATest extends \PHPUnit_Framework_TestCase
      */
     public function testWithScoringAndOneNonScoring($gridArray, $expected)
     {
+        $input = new ArtificialInputA();
         $grid = Grid::fromArray($gridArray);
-        $input = new ArtificialInputA($grid);
-        $this->assertEquals($expected, $input->getMove());
+        $this->assertEquals($expected, $input->getMove($grid));
     }
 }

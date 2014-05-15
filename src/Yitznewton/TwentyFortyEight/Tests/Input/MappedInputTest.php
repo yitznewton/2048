@@ -2,6 +2,7 @@
 
 namespace Yitznewton\TwentyFortyEight\Tests\Input;
 
+use Yitznewton\TwentyFortyEight\Grid;
 use Yitznewton\TwentyFortyEight\Input\MappedInput;
 use Yitznewton\TwentyFortyEight\Input\UnrecognizedInputException;
 use Yitznewton\TwentyFortyEight\Move\Move;
@@ -58,7 +59,7 @@ class MappedInputTest extends \PHPUnit_Framework_TestCase
     public function testGetInputWhenMappingExists($key, $move)
     {
         $this->device->setChar($key);
-        $this->assertEquals($move, $this->input->getMove());
+        $this->assertEquals($move, $this->input->getMove(Grid::fromArray([])));
     }
 
     /**
@@ -69,6 +70,6 @@ class MappedInputTest extends \PHPUnit_Framework_TestCase
         $this->device->setChar($key);
 
         $this->setExpectedException(UnrecognizedInputException::class);
-        $this->input->getMove();
+        $this->input->getMove(Grid::fromArray([]));
     }
 }

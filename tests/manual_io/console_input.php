@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+use Yitznewton\TwentyFortyEight\Grid;
 use Yitznewton\TwentyFortyEight\Input\MappedInput;
 use Yitznewton\TwentyFortyEight\Input\Device\KeyboardInputDevice;
 use Yitznewton\TwentyFortyEight\Move\Move;
@@ -21,7 +22,7 @@ $input = new MappedInput([
 
 while (true) {
     try {
-        var_dump($input->getMove());
+        var_dump($input->getMove(Grid::fromArray([])));
     } catch (\UnexpectedValueException $e) {
         var_dump($e->getMessage());
     }

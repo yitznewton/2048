@@ -12,22 +12,13 @@ class ArtificialInputA implements Input
 {
     const MAX_MOVES_TO_TRY = 2;
 
-    private $grid;
-
     /**
      * @param Grid $grid
-     */
-    public function __construct(Grid $grid)
-    {
-        $this->grid = $grid;
-    }
-
-    /**
      * @return mixed
      */
-    public function getMove()
+    public function getMove(Grid $grid)
     {
-        $movesWithScores = $this->getMovesWithScores($this->grid);
+        $movesWithScores = $this->getMovesWithScores($grid);
         return $this->preferredMove($this->highScoreMoves($movesWithScores));
     }
 
