@@ -185,6 +185,36 @@ class MoveMakerTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+    public function dataForGetPossibleMoves()
+    {
+        return [
+            [
+                [
+                    [2,4,8],
+                    [16,32,256],
+                    [64,128,-1],
+                ],
+                [Move::DOWN, Move::RIGHT],
+            ],
+            [
+                [
+                    [2,4,8],
+                    [-1,16,32],
+                    [64,128,256],
+                ],
+                [Move::UP, Move::DOWN, Move::LEFT],
+            ],
+            [
+                [
+                    [2,-1,8],
+                    [4,16,32],
+                    [64,128,256],
+                ],
+                [Move::UP, Move::LEFT, Move::RIGHT],
+            ],
+        ];
+    }
+
     public function dataForIsPossibleMove()
     {
         return [
@@ -284,6 +314,16 @@ class MoveMakerTest extends \PHPUnit_Framework_TestCase
     public function testHasPossibleMoves(array $grid, $expected)
     {
         $this->assertSame($expected, $this->getCalculator($grid)->hasPossibleMoves());
+    }
+
+    /**
+     * @dataProvider dataForGetPossibleMoves
+     * @param array $grid
+     * @param array $possibleMoves
+     */
+    public function testGetPossibleMoves(array $grid, array $possibleMoves)
+    {
+        $this->assertEquals($possibleMoves, $this->getCalculator($grid)->getPossibleMoves());
     }
 
     public function testMergeListener()
