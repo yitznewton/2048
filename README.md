@@ -1,5 +1,11 @@
 # 2048: a PHP implementation
 
+## Run the game
+
+```shell
+php 2048.php
+```
+
 ## Tests
 
 The `Makefile` refers to the automated tests and code quality tools. To
